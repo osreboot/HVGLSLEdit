@@ -34,13 +34,13 @@ public class Compiler {
 			current = current.getNext();
 		}
 		try{
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("shader\\compile.hvlfg")));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("shader\\Compile.hvlfg")));
 			writer.write(program);
 			writer.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		shader = new HvlShader(HvlShader.PATH_SHADER_DEFAULT + "compile" + HvlShader.SUFFIX_FRAGMENT);
+		shader = new HvlShader(HvlShader.PATH_SHADER_DEFAULT + "Compile" + HvlShader.SUFFIX_FRAGMENT);
 	}
 
 	public static void draw(float delta){
