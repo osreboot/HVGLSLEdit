@@ -18,16 +18,19 @@ public class NodeArbitraryFloat extends Node{
 		super("float " + valueArg, 512, 512, Color.orange);
 		value = valueArg;
 		ArrayList<Pin> outputs = new ArrayList<>();
-		next = new PinFloat(this, "output");
+		next = new PinFloat(this, "output"){
+			@Override
+			public String getOutput(){
+				return value + "";
+			}
+		};
 		outputs.add(next);
 		setOutputs(outputs);
 	}
 
 	@Override
 	public ArrayList<String> getContent(){
-		ArrayList<String> list = new ArrayList<>();
-		list.add(value + "");
-		return list;
+		return null;
 	}
 
 	@Override

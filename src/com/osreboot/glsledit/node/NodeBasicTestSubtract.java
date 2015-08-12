@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.glsledit.Compiler;
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
@@ -33,7 +32,7 @@ public class NodeBasicTestSubtract extends Node{
 	public ArrayList<String> getContent(){
 		String value = "";
 		Pin connection = Pin.findOutputConnection(input);
-		if(connection != null) value = connection.getParent().getContent().get(0); else value = "0";
+		if(connection != null) value = connection.getOutput(); else value = "0";
 		ArrayList<String> list = new ArrayList<>();
 		list.add("color = vec4(color.r - " + value + ", color.g - " + value + ", color.b - " + value + ", color.a);");
 		return list;

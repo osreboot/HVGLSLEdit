@@ -50,6 +50,10 @@ public abstract class Pin {
 		return parent;
 	}
 	
+	public String getOutput(){
+		return "";
+	}
+	
 	public abstract void setConnection(Pin connectionArg);
 	public abstract void resetConnections();
 	public abstract boolean hasConnection(Pin p);
