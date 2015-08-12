@@ -14,8 +14,8 @@ public class NodeBasicTestSubtract extends Node{
 	private PinExecute previous, next;
 	private PinFloat input;
 
-	public NodeBasicTestSubtract(){
-		super("lightness subtract", 512, 512, new Color(1, 0, 0.5f));
+	public NodeBasicTestSubtract(float x, float y){
+		super("lightness subtract", x, y, new Color(1, 0, 0.5f));
 		ArrayList<Pin> inputs = new ArrayList<>();
 		previous = new PinExecute(this);
 		inputs.add(previous);

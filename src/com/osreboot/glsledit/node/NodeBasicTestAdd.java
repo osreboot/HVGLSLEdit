@@ -14,8 +14,8 @@ public class NodeBasicTestAdd extends Node{
 	private PinExecute previous, next;
 	private PinFloat input;
 
-	public NodeBasicTestAdd(){
-		super("lightness add", 512, 512, new Color(1, 0.5f, 0));
+	public NodeBasicTestAdd(float x, float y){
+		super("lightness add", x, y, new Color(1, 0.5f, 0));
 		ArrayList<Pin> inputs = new ArrayList<>();
 		previous = new PinExecute(this);
 		inputs.add(previous);

@@ -12,8 +12,8 @@ public class NodeBasicStart extends Node{
 
 	private PinExecute next;
 	
-	public NodeBasicStart(){
-		super("start", 512, 512, Color.blue);
+	public NodeBasicStart(float x, float y){
+		super("start", x, y, Color.blue);
 		ArrayList<Pin> outputs = new ArrayList<>();
 		next = new PinExecute(this);
 		outputs.add(next);

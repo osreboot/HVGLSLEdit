@@ -1,11 +1,9 @@
 package com.osreboot.glsledit.pin;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-
-import org.newdawn.slick.Color;
-
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.Overlay;
 import com.osreboot.glsledit.Pin;
+import com.osreboot.ridhvl.HvlCoord;
 
 public class PinExecute extends Pin{
 
@@ -24,12 +22,12 @@ public class PinExecute extends Pin{
 	}
 
 	public Node getConnection(){
-		return connection.getParent();
+		return connection.getParent();//TODO null catch here with public static final node error
 	}
 
 	@Override
 	public void drawConnections(float deltaArg){
-		if(connection != null) hvlDrawLine(getX(), getY(), connection.getX(), connection.getY(), Color.green);
+		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()));
 	}
 
 	@Override
@@ -40,6 +38,11 @@ public class PinExecute extends Pin{
 	@Override
 	public boolean hasConnection(Pin pArg){
 		return connection == pArg;
+	}
+	
+	@Override
+	public void removeConnection(Pin pArg){
+		if(connection == pArg) connection = null;
 	}
 
 }

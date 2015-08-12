@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.Overlay;
 import com.osreboot.glsledit.Pin;
+import com.osreboot.ridhvl.HvlCoord;
 
 public class PinFloat extends Pin{
 
@@ -27,7 +29,7 @@ public class PinFloat extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			hvlDrawLine(getX(), getY(), p.getX(), p.getY(), Color.green);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()));
 		}
 	}
 
@@ -39,6 +41,11 @@ public class PinFloat extends Pin{
 	@Override
 	public boolean hasConnection(Pin pArg){
 		return connections.contains(pArg);
+	}
+
+	@Override
+	public void removeConnection(Pin pArg){
+		connections.remove(pArg);
 	}
 
 }

@@ -14,8 +14,8 @@ public class NodeArbitraryFloat extends Node{
 
 	private float value;
 	
-	public NodeArbitraryFloat(float valueArg){
-		super("float " + valueArg, 512, 512, Color.orange);
+	public NodeArbitraryFloat(float valueArg, float x, float y){
+		super("float " + valueArg, x, y, Color.orange);
 		value = valueArg;
 		ArrayList<Pin> outputs = new ArrayList<>();
 		next = new PinFloat(this, "output"){

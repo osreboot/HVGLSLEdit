@@ -2,25 +2,27 @@ package com.osreboot.glsledit;
 
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.osreboot.glsledit.node.NodeArbitraryFloat;
-import com.osreboot.glsledit.node.NodeBasicEnd;
 import com.osreboot.glsledit.node.NodeBasicStart;
-import com.osreboot.glsledit.node.NodeBasicTestAdd;
-import com.osreboot.glsledit.node.NodeBasicTestSubtract;
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
-import com.osreboot.ridhvl.menu.component.HvlButton.OnClickedCommand;
-import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
+import com.osreboot.ridhvl.menu.component.HvlButton.OnClickedCommand;
+import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
+import com.osreboot.ridhvl.menu.component.HvlListBox;
+import com.osreboot.ridhvl.menu.component.HvlSlider;
+import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;
@@ -43,6 +45,7 @@ public class Main extends HvlTemplateInteg2D{
 	private static HvlLabeledButton removeButton;
 	
 	private static Node starterNode;
+	private static HvlListBox nodeList;
 	
 	@Override
 	public void initialize(){
@@ -52,6 +55,8 @@ public class Main extends HvlTemplateInteg2D{
 		font = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 		
 		Compiler.initialize();
+		
+		Node.initialize();
 		
 		HvlLabeledButton labeledButtonDefault = new HvlLabeledButton(64, 64, new HvlComponentDrawable(){
 			@Override
@@ -71,6 +76,36 @@ public class Main extends HvlTemplateInteg2D{
 		}, font, "", 0.075f, Color.white);
 		labeledButtonDefault.setAlign(0.5f);
 		HvlComponentDefault.setDefault(labeledButtonDefault);
+		
+		HvlSlider sliderDefault = new HvlSlider(16, 256, SliderDirection.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//slider handle
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//slider background
+				hvlDrawQuad(x, y, width, height, Color.gray);
+			}
+		});
+		HvlComponentDefault.setDefault(sliderDefault);
+		
+		HvlComponentDefault.setDefault(new HvlButton(16, 16, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.lightGray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		}));
 		
 		main = new HvlMenu();
 		
@@ -93,6 +128,38 @@ public class Main extends HvlTemplateInteg2D{
 				Compiler.compile();
 			}
 		}).build());
+		
+		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("add node").setClickedCommand(new OnClickedCommand(){
+			@Override
+			public void run(HvlButton button){
+				if(nodeList.getSelectedIndex() != -1) (new ArrayList<HvlAction0>(Node.getRegistry().values())).get(nodeList.getSelectedIndex()).run();
+			}
+		}).build());
+		
+		nodeList = new HvlListBox(96, 256, new HvlSlider(16, 256, SliderDirection.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//slider handle
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//slider background
+				hvlDrawQuad(x, y, width, height, Color.gray);
+			}
+		}), new HvlButton.Builder().build(), new HvlButton.Builder().build(), font, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//item on
+				hvlDrawQuad(x, y, width, height, Color.gray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){//item off
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		}, 16, 8);
+		for(String s : Node.getRegistry().keySet()) nodeList.addItem(s);
+		nodeList.setTextScale(0.1f);
+		main.getFirstChildOfType(HvlArrangerBox.class).add(nodeList);
 		
 		final HvlComponentDrawable removeOnDrawable = new HvlComponentDrawable(){
 			@Override
@@ -119,17 +186,8 @@ public class Main extends HvlTemplateInteg2D{
 		
 		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
 		
-		starterNode = new NodeBasicStart();
+		starterNode = new NodeBasicStart(0, 0);
 		HvlCamera.setPosition(starterNode.getX(), starterNode.getY());
-		new NodeBasicEnd();
-		new NodeBasicTestAdd();
-		new NodeBasicTestAdd();
-		new NodeArbitraryFloat(0.1f);
-		new NodeArbitraryFloat(0.5f);
-		new NodeArbitraryFloat(1f);
-		new NodeBasicTestSubtract();
-		new NodeBasicTestSubtract();
-		
 	}
 
 	@Override
@@ -137,6 +195,8 @@ public class Main extends HvlTemplateInteg2D{
 		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
 		
 		for(Node n : Node.getNodes()) n.draw(delta);
+		
+		Overlay.drawWires(delta);
 		
 		HvlCamera.undoTransform();
 		Compiler.draw(delta);
@@ -153,5 +213,6 @@ public class Main extends HvlTemplateInteg2D{
 	public static HvlLabeledButton getRemoveButton(){
 		return removeButton;
 	}
+	
 
 }

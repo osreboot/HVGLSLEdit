@@ -56,6 +56,7 @@ public abstract class Pin {
 	
 	public abstract void setConnection(Pin connectionArg);
 	public abstract void resetConnections();
+	public abstract void removeConnection(Pin p);
 	public abstract boolean hasConnection(Pin p);
 	public abstract void drawConnections(float delta);
 

@@ -86,7 +86,7 @@ public class Interactor {
 					if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
 							HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin != p){
 						Pin connection = Pin.findOutputConnection(p);
-						if(connection != null) connection.resetConnections();
+						if(connection != null) connection.removeConnection(p);
 						mousePin.setConnection(p);
 						set = true;
 					}

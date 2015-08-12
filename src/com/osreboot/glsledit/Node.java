@@ -3,11 +3,52 @@ package com.osreboot.glsledit;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.newdawn.slick.Color;
 
-public abstract class Node {
+import com.osreboot.glsledit.node.NodeArbitraryFloat;
+import com.osreboot.glsledit.node.NodeBasicEnd;
+import com.osreboot.glsledit.node.NodeBasicTestAdd;
+import com.osreboot.glsledit.node.NodeBasicTestSubtract;
+import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.painter.HvlCamera;
 
+public abstract class Node {
+	
+	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
+
+	public static LinkedHashMap<String, HvlAction0> getRegistry(){
+		return registry;
+	}
+	
+	public static void initialize(){
+		registry.put("end", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBasicEnd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("float", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeArbitraryFloat(0.1f, HvlCamera.getX(), HvlCamera.getY());//TODO input number here
+			}
+		});
+		registry.put("c l add", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBasicTestAdd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c l sub", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBasicTestSubtract(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+	}
+	
 	private static ArrayList<Node> nodes = new ArrayList<>();
 
 	public static ArrayList<Node> getNodes(){
@@ -15,6 +56,12 @@ public abstract class Node {
 	}
 	
 	public static void removeNode(Node node){
+		for(Pin p : node.getAllPins()){
+			p.resetConnections();
+			Pin connection = Pin.findOutputConnection(p);
+			if(connection != null) connection.removeConnection(p);
+		}
+		
 		nodes.remove(node);
 		node = null;
 	}

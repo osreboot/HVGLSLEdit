@@ -12,8 +12,8 @@ public class NodeBasicEnd extends Node{
 
 	private PinExecute previous;
 	
-	public NodeBasicEnd(){
-		super("end", 512, 512, Color.red);
+	public NodeBasicEnd(float x, float y){
+		super("end", x, y, Color.red);
 		ArrayList<Pin> inputs = new ArrayList<>();
 		previous = new PinExecute(this);
 		inputs.add(previous);
