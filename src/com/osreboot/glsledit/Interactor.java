@@ -84,6 +84,8 @@ public class Interactor {
 					float y = p.getY() - HvlCamera.getY() + (Display.getHeight()/2);
 					if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
 							HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin != p){
+						Pin connection = Pin.findOutputConnection(p);
+						if(connection != null) connection.resetConnections();
 						mousePin.setConnection(p);
 						set = true;
 					}

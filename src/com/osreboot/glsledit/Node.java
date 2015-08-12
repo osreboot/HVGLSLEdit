@@ -76,6 +76,13 @@ public abstract class Node {
 	public void setOutputs(ArrayList<Pin> outputsArg){
 		outputs = outputsArg;
 	}
+	
+	public ArrayList<Pin> getAllPins(){
+		ArrayList<Pin> pins = new ArrayList<>();
+		pins.addAll(inputs);
+		pins.addAll(outputs);
+		return pins;
+	}
 
 	public ArrayList<Pin> getOutputs(){
 		return outputs;

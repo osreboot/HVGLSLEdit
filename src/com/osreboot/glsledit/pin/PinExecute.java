@@ -17,6 +17,7 @@ public class PinExecute extends Pin{
 
 	@Override
 	public void setConnection(Pin connectionArg){
+		if(connectionArg == null) connection = null;
 		if(connectionArg instanceof PinExecute){
 			connection = connectionArg;
 		}
@@ -34,6 +35,11 @@ public class PinExecute extends Pin{
 	@Override
 	public void resetConnections(){
 		connection = null;
+	}
+
+	@Override
+	public boolean hasConnection(Pin pArg){
+		return connection == pArg;
 	}
 
 }

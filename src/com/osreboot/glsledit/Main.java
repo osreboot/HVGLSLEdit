@@ -5,6 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.osreboot.glsledit.node.NodeArbitraryFloat;
 import com.osreboot.glsledit.node.NodeBasicEnd;
 import com.osreboot.glsledit.node.NodeBasicStart;
 import com.osreboot.glsledit.node.NodeBasicTestAdd;
@@ -95,7 +96,9 @@ public class Main extends HvlTemplateInteg2D{
 		new NodeBasicEnd();
 		new NodeBasicTestAdd();
 		new NodeBasicTestAdd();
-		new NodeBasicTestAdd();
+		new NodeArbitraryFloat(0.1f);
+		new NodeArbitraryFloat(0.5f);
+		new NodeArbitraryFloat(1f);
 		new NodeBasicTestSubtract();
 		new NodeBasicTestSubtract();
 		

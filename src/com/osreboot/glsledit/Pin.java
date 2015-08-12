@@ -6,6 +6,21 @@ import org.newdawn.slick.Color;
 
 public abstract class Pin {
 
+	public static Pin findOutputConnection(Pin p){
+		for(Node n : Node.getNodes()){
+			for(Pin pin : n.getOutputs()) if(pin.hasConnection(p)) return pin;
+		}
+		return null;
+	}
+	
+	public static int getOutputConnectionCount(Pin p){
+		int total = 0;
+		for(Node n : Node.getNodes()){
+			for(Pin pin : n.getOutputs()) if(pin.hasConnection(p)) total++;
+		}
+		return total;
+	}
+	
 	private Node parent;
 
 	private String name;
@@ -19,7 +34,7 @@ public abstract class Pin {
 		hvlDrawQuad(getX() - 8, getY() - 8, 16, 16, 
 				input ? new Color(parent.getColor().r + 0.2f, parent.getColor().g + 0.2f, parent.getColor().b + 0.2f, 1) :
 					new Color(parent.getColor().r - 0.2f, parent.getColor().g - 0.2f, parent.getColor().b - 0.2f, 1));
-		Main.font.drawWord(name, parent.getX() + (input ? 16 : 240) - (input ? 0 : Main.font.getLineWidth(name)/10), getY(), 0.1f, Color.white);
+		Main.font.drawWord(name, parent.getX() + (input ? 16 : 240) - (input ? 0 : Main.font.getLineWidth(name)/10), getY() - 8, 0.1f, Color.white);
 		if(!input) drawConnections(delta);
 	}
 
@@ -28,7 +43,7 @@ public abstract class Pin {
 	}
 	
 	public float getY(){
-		return parent.getY() + (((parent.getInputs().contains(this) ? parent.getInputs().indexOf(this) : parent.getOutputs().indexOf(this)) + 0.625f) * 64) + 8;
+		return parent.getY() + (((parent.getInputs().contains(this) ? parent.getInputs().indexOf(this) : parent.getOutputs().indexOf(this)) + 1.25f) * 32) + 8;
 	}
 	
 	public Node getParent(){
@@ -37,6 +52,7 @@ public abstract class Pin {
 	
 	public abstract void setConnection(Pin connectionArg);
 	public abstract void resetConnections();
+	public abstract boolean hasConnection(Pin p);
 	public abstract void drawConnections(float delta);
 
 	public String getName(){

@@ -17,20 +17,27 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class Compiler {
 
+	public static final String SHADER_ERROR = "SHADER ERROR";
+	
 	private static HvlRenderFrame frame;
 	private static HvlShader shader;
+	private static boolean failed = false;
 
 	public static void initialize(){
 		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 512, 512);
 	}
 
 	public static void compile(){
+		failed = false;
 		Main.font.drawWord("compiling...", (Display.getWidth()/2) - (Main.font.getLineWidth("compiling...")/4), (Display.getHeight()/2) - 28, 0.5f, Color.green);
 
 		String program = "";
 		Node current = Main.getStarterNode();
 		while(current != null){
-			for(String s : current.getContent()) program += s;
+			for(String s : current.getContent()){
+				if(s.equals(SHADER_ERROR)) failed = true;
+				program += s;
+			}
 			current = current.getNext();
 		}
 		try{
@@ -51,7 +58,7 @@ public class Compiler {
 		hvlDrawQuad(Display.getWidth() - 512 + 128, (Display.getHeight()/2) - 128, 256, 256, HvlTemplateInteg2D.getTexture(0));
 		hvlResetRotation();
 		HvlRenderFrame.setCurrentRenderFrame(null);
-		if(shader != null){
+		if(shader != null && !failed){
 			HvlShader.setCurrentShader(shader);
 			hvlDrawQuad(Display.getWidth() - 512, (Display.getHeight()/2) - 256, 512, 512, frame);
 			HvlShader.setCurrentShader(null);
