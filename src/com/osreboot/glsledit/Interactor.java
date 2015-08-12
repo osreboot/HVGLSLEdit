@@ -22,7 +22,7 @@ public class Interactor {
 	public static void update(float delta){
 		if(Mouse.isButtonDown(0)){
 			if(!clicked){
-				onClick();
+				if(HvlCursor.getCursorX() > 128) onClick();
 				clicked = true;
 			}
 
@@ -37,8 +37,8 @@ public class Interactor {
 
 		}else{
 			clicked = false;
+			onReleaseClick();
 			mouseNode = null;
-			attemptConnectPin();
 			mousePin = null;
 		}
 		if(Mouse.isButtonDown(2)){
@@ -75,7 +75,8 @@ public class Interactor {
 		}
 	}
 	
-	private static void attemptConnectPin(){
+	private static void onReleaseClick(){
+		if(isHoveringRemove()) Node.removeNode(mouseNode);
 		if(mousePin != null){
 			boolean set = false;
 			for(Node n : Node.getNodes()){
@@ -93,6 +94,11 @@ public class Interactor {
 			}
 			if(!set) mousePin.resetConnections();
 		}
+	}
+	
+	public static boolean isHoveringRemove(){
+		return HvlCursor.getCursorX() > Main.getRemoveButton().getX() && HvlCursor.getCursorX() < Main.getRemoveButton().getX() + Main.getRemoveButton().getWidth() && 
+				HvlCursor.getCursorY() > Main.getRemoveButton().getY() && HvlCursor.getCursorY() < Main.getRemoveButton().getY() + Main.getRemoveButton().getHeight()&& mouseNode != null && mouseNode != Main.getStarterNode();
 	}
 
 }

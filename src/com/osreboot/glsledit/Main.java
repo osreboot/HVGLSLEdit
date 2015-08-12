@@ -40,6 +40,7 @@ public class Main extends HvlTemplateInteg2D{
 	public static HvlFontPainter2D font;
 	
 	public static HvlMenu main;
+	private static HvlLabeledButton removeButton;
 	
 	private static Node starterNode;
 	
@@ -61,6 +62,11 @@ public class Main extends HvlTemplateInteg2D{
 			@Override
 			public void draw(float delta, float x, float y, float width, float height){
 				hvlDrawQuad(x, y, width, height, Color.lightGray);
+			}
+		}, new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
 			}
 		}, font, "", 0.075f, Color.white);
 		labeledButtonDefault.setAlign(0.5f);
@@ -88,11 +94,33 @@ public class Main extends HvlTemplateInteg2D{
 			}
 		}).build());
 		
+		final HvlComponentDrawable removeOnDrawable = new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.lightGray);
+			}
+		};
+		final HvlComponentDrawable removeOffDrawable = new HvlComponentDrawable(){
+			@Override
+			public void draw(float delta, float x, float y, float width, float height){
+				hvlDrawQuad(x, y, width, height, Color.darkGray);
+			}
+		};
+		removeButton = new HvlLabeledButton.Builder().setText("remove").setEnabled(false).setUpdateOverride(new HvlAction2<HvlComponent, Float>() {
+			@Override
+			public void run(HvlComponent component, Float delta){
+				((HvlLabeledButton)(component)).setOffDrawable(Interactor.isHoveringRemove() ? removeOnDrawable : removeOffDrawable);
+				component.update(delta);
+			}
+		}).build();
+		main.getFirstChildOfType(HvlArrangerBox.class).add(removeButton);
+		
 		HvlMenu.setCurrent(main);
 		
 		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
 		
 		starterNode = new NodeBasicStart();
+		HvlCamera.setPosition(starterNode.getX(), starterNode.getY());
 		new NodeBasicEnd();
 		new NodeBasicTestAdd();
 		new NodeBasicTestAdd();
@@ -120,6 +148,10 @@ public class Main extends HvlTemplateInteg2D{
 
 	public static Node getStarterNode(){
 		return starterNode;
+	}
+
+	public static HvlLabeledButton getRemoveButton(){
+		return removeButton;
 	}
 
 }

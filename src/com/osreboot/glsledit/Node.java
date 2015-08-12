@@ -14,6 +14,11 @@ public abstract class Node {
 		return nodes;
 	}
 	
+	public static void removeNode(Node node){
+		nodes.remove(node);
+		node = null;
+	}
+	
 	private ArrayList<Pin> inputs = new ArrayList<>(), outputs = new ArrayList<>();
 
 	private float x, y;
