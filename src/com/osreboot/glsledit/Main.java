@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import com.osreboot.glsledit.node.NodeBasicStart;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.menu.HvlComponent;
@@ -18,7 +19,6 @@ import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
-import com.osreboot.ridhvl.menu.component.HvlButton.OnClickedCommand;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
@@ -122,14 +122,14 @@ public class Main extends HvlTemplateInteg2D{
 		sideBar.setBorderU(16);
 		sideBar.setBorderD(16);
 		main.add(sideBar);
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("compile").setClickedCommand(new OnClickedCommand(){
+		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("compile").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				Compiler.compile();
 			}
 		}).build());
 		
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("add node").setClickedCommand(new OnClickedCommand(){
+		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("add node").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				if(nodeList.getSelectedIndex() != -1) (new ArrayList<HvlAction0>(Node.getRegistry().values())).get(nodeList.getSelectedIndex()).run();
