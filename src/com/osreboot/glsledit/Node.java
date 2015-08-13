@@ -11,10 +11,17 @@ import com.osreboot.glsledit.node.NodeArbitraryFloat;
 import com.osreboot.glsledit.node.NodeBasicEnd;
 import com.osreboot.glsledit.node.NodeBasicTestAdd;
 import com.osreboot.glsledit.node.NodeBasicTestSubtract;
+import com.osreboot.glsledit.node.NodeFloatAdd;
+import com.osreboot.glsledit.node.NodeFloatDivide;
+import com.osreboot.glsledit.node.NodeFloatMultiply;
+import com.osreboot.glsledit.node.NodeFloatSubtract;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class Node {
+	
+	public static final Color COLOR_ADD = new Color(1, 0.5f, 0), COLOR_SUB = new Color(1, 0, 0.5f),
+			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f);
 	
 	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
 
@@ -45,6 +52,30 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeBasicTestSubtract(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f add", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatAdd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f sub", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatSubtract(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f mlt", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatMultiply(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f div", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 	}

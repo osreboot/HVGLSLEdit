@@ -1,10 +1,6 @@
 package com.osreboot.glsledit.pin;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-
 import java.util.ArrayList;
-
-import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Overlay;

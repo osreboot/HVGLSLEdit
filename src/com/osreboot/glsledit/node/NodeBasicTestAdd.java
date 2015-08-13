@@ -2,8 +2,6 @@ package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
-
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
@@ -15,7 +13,7 @@ public class NodeBasicTestAdd extends Node{
 	private PinFloat input;
 
 	public NodeBasicTestAdd(float x, float y){
-		super("lightness add", x, y, new Color(1, 0.5f, 0));
+		super("lightness add", x, y, Node.COLOR_ADD);
 		ArrayList<Pin> inputs = new ArrayList<>();
 		previous = new PinExecute(this);
 		inputs.add(previous);
