@@ -37,6 +37,7 @@ public class Compiler {
 			for(String s : current.getContent()){
 				if(s.equals(SHADER_ERROR)) failed = true;
 				program += s;
+				program += System.lineSeparator();
 			}
 			current = current.getNext();
 		}

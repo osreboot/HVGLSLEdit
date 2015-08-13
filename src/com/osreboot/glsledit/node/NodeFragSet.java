@@ -24,7 +24,7 @@ public class NodeFragSet extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		return new ArrayList<String>(Arrays.asList("gl_FragColor = " + Pin.getConnectionOutput(input, Node.DEFAULT_COLOR)));
+		return new ArrayList<String>(Arrays.asList("gl_FragColor = " + Pin.getConnectionOutput(input, Node.DEFAULT_COLOR) + ";"));
 	}
 
 	@Override

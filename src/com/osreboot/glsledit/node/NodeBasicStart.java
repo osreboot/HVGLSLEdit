@@ -21,7 +21,7 @@ public class NodeBasicStart extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){//TODO make sampling manual
-		return new ArrayList<String>(Arrays.asList("uniform sampler2D texture1; void main(){ vec4 color = texture2D(texture1, gl_TexCoord[0].st);"));
+		return new ArrayList<String>(Arrays.asList("uniform sampler2D texture1;", "void main(){", "vec4 color = texture2D(texture1, gl_TexCoord[0].st);"));
 	}
 
 	@Override
