@@ -24,9 +24,8 @@ public class NodeBasicTestSubtract extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		String value = "";
-		Pin connection = Pin.findOutputConnection(input);
-		if(connection != null) value = connection.getOutput(); else value = "0";
+		String value = Pin.getConnectionOutput(input, "0");
+		
 		return new ArrayList<String>(Arrays.asList("color = vec4(color.r - " + value + ", color.g - " + value + ", color.b - " + value + ", color.a);"));
 	}
 

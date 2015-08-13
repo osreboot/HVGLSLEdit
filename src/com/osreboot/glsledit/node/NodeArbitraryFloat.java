@@ -1,6 +1,7 @@
 package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.newdawn.slick.Color;
 
@@ -17,15 +18,13 @@ public class NodeArbitraryFloat extends Node{
 	public NodeArbitraryFloat(float valueArg, float x, float y){
 		super("float " + valueArg, x, y, Color.orange);
 		value = valueArg;
-		ArrayList<Pin> outputs = new ArrayList<>();
 		next = new PinFloat(this, "output"){
 			@Override
 			public String getOutput(){
 				return value + "";
 			}
 		};
-		outputs.add(next);
-		setOutputs(outputs);
+		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
 	@Override

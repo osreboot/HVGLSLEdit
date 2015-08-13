@@ -1,6 +1,7 @@
 package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.newdawn.slick.Color;
 
@@ -14,17 +15,13 @@ public class NodeBasicStart extends Node{
 	
 	public NodeBasicStart(float x, float y){
 		super("start", x, y, Color.blue);
-		ArrayList<Pin> outputs = new ArrayList<>();
 		next = new PinExecute(this);
-		outputs.add(next);
-		setOutputs(outputs);
+		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
 	@Override
-	public ArrayList<String> getContent(){
-		ArrayList<String> list = new ArrayList<>();
-		list.add("uniform sampler2D texture1; void main(){ vec4 color = texture2D(texture1, gl_TexCoord[0].st);");
-		return list;
+	public ArrayList<String> getContent(){//TODO make sampling manual
+		return new ArrayList<String>(Arrays.asList("uniform sampler2D texture1; void main(){ vec4 color = texture2D(texture1, gl_TexCoord[0].st);"));
 	}
 
 	@Override

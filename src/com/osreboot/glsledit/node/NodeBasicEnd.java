@@ -1,6 +1,7 @@
 package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.newdawn.slick.Color;
 
@@ -13,18 +14,14 @@ public class NodeBasicEnd extends Node{
 	private PinExecute previous;
 	
 	public NodeBasicEnd(float x, float y){
-		super("end", x, y, Color.red);
-		ArrayList<Pin> inputs = new ArrayList<>();
+		super("var color end", x, y, Color.red);
 		previous = new PinExecute(this);
-		inputs.add(previous);
-		setInputs(inputs);
+		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 	}
 
 	@Override
 	public ArrayList<String> getContent(){
-		ArrayList<String> list = new ArrayList<>();
-		list.add("gl_FragColor = color; }");
-		return list;
+		return new ArrayList<String>(Arrays.asList("gl_FragColor = color; }"));
 	}
 
 	@Override

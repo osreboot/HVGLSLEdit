@@ -11,17 +11,25 @@ import com.osreboot.glsledit.node.NodeArbitraryFloat;
 import com.osreboot.glsledit.node.NodeBasicEnd;
 import com.osreboot.glsledit.node.NodeBasicTestAdd;
 import com.osreboot.glsledit.node.NodeBasicTestSubtract;
+import com.osreboot.glsledit.node.NodeColorToFloat;
+import com.osreboot.glsledit.node.NodeEnd;
 import com.osreboot.glsledit.node.NodeFloatAdd;
 import com.osreboot.glsledit.node.NodeFloatDivide;
 import com.osreboot.glsledit.node.NodeFloatMultiply;
 import com.osreboot.glsledit.node.NodeFloatSubtract;
+import com.osreboot.glsledit.node.NodeFloatToColor;
+import com.osreboot.glsledit.node.NodeFragSet;
+import com.osreboot.glsledit.node.NodeVariableColorGet;
+import com.osreboot.glsledit.node.NodeVariableColorSet;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class Node {
 	
 	public static final Color COLOR_ADD = new Color(1, 0.5f, 0), COLOR_SUB = new Color(1, 0, 0.5f),
-			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f);
+			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f), COLOR_CAST = new Color(1f, 0.5f, 0.5f),
+			COLOR_VARIABLE = new Color(0.5f, 0.5f, 1f);
+	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 	
 	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
 
@@ -30,16 +38,22 @@ public abstract class Node {
 	}
 	
 	public static void initialize(){
-		registry.put("end", new HvlAction0(){
+		registry.put("bsc end", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBasicEnd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("end", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeEnd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
 		registry.put("float", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeArbitraryFloat(0.1f, HvlCamera.getX(), HvlCamera.getY());//TODO input number here
+				new NodeArbitraryFloat(0.2f, HvlCamera.getX(), HvlCamera.getY());//TODO input number here
 			}
 		});
 		registry.put("c l add", new HvlAction0(){
@@ -76,6 +90,36 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f to c", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c to f", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c var get", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeVariableColorGet("color", HvlCamera.getX(), HvlCamera.getY());//TODO input string here
+			}
+		});
+		registry.put("frag set", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c var set", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeVariableColorSet("color", HvlCamera.getX(), HvlCamera.getY());//TODO input string here
 			}
 		});
 	}

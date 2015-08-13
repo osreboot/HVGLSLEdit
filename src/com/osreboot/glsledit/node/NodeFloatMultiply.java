@@ -27,15 +27,7 @@ public class NodeFloatMultiply extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		String value = "";
-		Pin connection = Pin.findOutputConnection(input1);
-		if(connection != null) value = connection.getOutput(); else value = "0";
-		
-		String value2 = "";
-		Pin connection2 = Pin.findOutputConnection(input2);
-		if(connection2 != null) value2 = connection2.getOutput(); else value2 = "0";
-		
-		return new ArrayList<String>(Arrays.asList("(" + value + " * " + value2 + ")"));
+		return new ArrayList<String>(Arrays.asList("(" + Pin.getConnectionOutput(input1, "0") + " * " + Pin.getConnectionOutput(input2, "0") + ")"));
 	}
 
 	@Override

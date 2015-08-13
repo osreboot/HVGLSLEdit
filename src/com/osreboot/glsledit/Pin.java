@@ -5,7 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 import org.newdawn.slick.Color;
 
 public abstract class Pin {
-
+	
 	public static Pin findOutputConnection(Pin p){
 		for(Node n : Node.getNodes()){
 			for(Pin pin : n.getOutputs()) if(pin.hasConnection(p)) return pin;
@@ -19,6 +19,11 @@ public abstract class Pin {
 			for(Pin pin : n.getOutputs()) if(pin.hasConnection(p)) total++;
 		}
 		return total;
+	}
+	
+	public static String getConnectionOutput(Pin pin, String defaultOutput){
+		Pin connection = Pin.findOutputConnection(pin);
+		if(connection != null) return connection.getOutput(); else return defaultOutput;
 	}
 	
 	private Node parent;
