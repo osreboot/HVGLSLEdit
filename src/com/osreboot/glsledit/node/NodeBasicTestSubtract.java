@@ -1,6 +1,7 @@
 package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
@@ -14,16 +15,11 @@ public class NodeBasicTestSubtract extends Node{
 
 	public NodeBasicTestSubtract(float x, float y){
 		super("lightness subtract", x, y, Node.COLOR_SUB);
-		ArrayList<Pin> inputs = new ArrayList<>();
 		previous = new PinExecute(this);
-		inputs.add(previous);
 		input = new PinFloat(this, "lightness");
-		inputs.add(input);
-		setInputs(inputs);
-		ArrayList<Pin> outputs = new ArrayList<>();
+		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));
 		next = new PinExecute(this);
-		outputs.add(next);
-		setOutputs(outputs);
+		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
 	@Override
@@ -31,9 +27,7 @@ public class NodeBasicTestSubtract extends Node{
 		String value = "";
 		Pin connection = Pin.findOutputConnection(input);
 		if(connection != null) value = connection.getOutput(); else value = "0";
-		ArrayList<String> list = new ArrayList<>();
-		list.add("color = vec4(color.r - " + value + ", color.g - " + value + ", color.b - " + value + ", color.a);");
-		return list;
+		return new ArrayList<String>(Arrays.asList("color = vec4(color.r - " + value + ", color.g - " + value + ", color.b - " + value + ", color.a);"));
 	}
 
 	@Override

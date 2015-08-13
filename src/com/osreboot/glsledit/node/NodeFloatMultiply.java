@@ -1,6 +1,7 @@
 package com.osreboot.glsledit.node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
@@ -12,21 +13,16 @@ public class NodeFloatMultiply extends Node{
 
 	public NodeFloatMultiply(float x, float y){
 		super("float multiply", x, y, Node.COLOR_MLT);
-		ArrayList<Pin> inputs = new ArrayList<>();
 		input1 = new PinFloat(this, "1");
-		inputs.add(input1);
 		input2 = new PinFloat(this, "2");
-		inputs.add(input2);
-		setInputs(inputs);
-		ArrayList<Pin> outputs = new ArrayList<>();
+		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));
 		output = new PinFloat(this, "out"){
 			@Override
 			public String getOutput(){
 				return getContent().get(0);
 			}
 		};
-		outputs.add(output);
-		setOutputs(outputs);
+		setOutputs(new ArrayList<Pin>(Arrays.asList(output)));
 	}
 
 	@Override
@@ -39,9 +35,7 @@ public class NodeFloatMultiply extends Node{
 		Pin connection2 = Pin.findOutputConnection(input2);
 		if(connection2 != null) value2 = connection2.getOutput(); else value2 = "0";
 		
-		ArrayList<String> list = new ArrayList<>();
-		list.add("(" + value + " * " + value2 + ")");
-		return list;
+		return new ArrayList<String>(Arrays.asList("(" + value + " * " + value2 + ")"));
 	}
 
 	@Override
