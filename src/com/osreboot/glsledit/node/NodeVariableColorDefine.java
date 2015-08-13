@@ -5,18 +5,20 @@ import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
+import com.osreboot.glsledit.pin.PinColor;
 import com.osreboot.glsledit.pin.PinExecute;
-import com.osreboot.glsledit.pin.PinFloat;
 
-public class NodeBasicTestSubtract extends Node{
+public class NodeVariableColorDefine extends Node{
 
 	private PinExecute previous, next;
-	private PinFloat input;
-
-	public NodeBasicTestSubtract(float x, float y){
-		super("lightness subtract", x, y, Node.COLOR_SUB);
+	private String path;
+	private PinColor input;
+	
+	public NodeVariableColorDefine(String pathArg, float x, float y){
+		super("def " + pathArg, x, y, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);
-		input = new PinFloat(this, "lightness");
+		path = pathArg;
+		input = new PinColor(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
@@ -24,9 +26,7 @@ public class NodeBasicTestSubtract extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		String value = Pin.getConnectionOutput(input, "0");
-		
-		return new ArrayList<String>(Arrays.asList("color = vec4(color.r - " + value + ", color.g - " + value + ", color.b - " + value + ", color.a);"));
+		return new ArrayList<String>(Arrays.asList("vec4 " + path + " = " + Pin.getConnectionOutput(input, Node.DEFAULT_COLOR) + ";"));
 	}
 
 	@Override

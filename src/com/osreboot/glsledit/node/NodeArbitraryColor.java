@@ -16,7 +16,7 @@ public class NodeArbitraryColor extends Node{
 	private Color value;
 	
 	public NodeArbitraryColor(Color valueArg, float x, float y){
-		super(round(valueArg.r) + "r " + round(valueArg.g) + "g " + round(valueArg.b) + "b " + round(valueArg.a) + "a ", x, y, Color.orange);
+		super(round(valueArg.r) + "r " + round(valueArg.g) + "g " + round(valueArg.b) + "b " + round(valueArg.a) + "a ", x, y, Node.COLOR_ARBITRARY);
 		value = valueArg;
 		next = new PinColor(this, "out"){
 			@Override

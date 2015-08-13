@@ -3,8 +3,6 @@ package com.osreboot.glsledit.node;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.newdawn.slick.Color;
-
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
@@ -14,7 +12,7 @@ public class NodeBasicStart extends Node{
 	private PinExecute next;
 	
 	public NodeBasicStart(float x, float y){
-		super("start", x, y, Color.blue);
+		super("start", x, y, Node.COLOR_START);
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}

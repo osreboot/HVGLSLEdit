@@ -12,7 +12,7 @@ public class NodeFloatAdd extends Node{
 	private PinFloat input1, input2, output;
 
 	public NodeFloatAdd(float x, float y){
-		super("float add", x, y, Node.COLOR_ADD);
+		super("float add", x, y, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

@@ -3,18 +3,16 @@ package com.osreboot.glsledit.node;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.newdawn.slick.Color;
-
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
 
-public class NodeBasicEnd extends Node{
+public class NodeFragSetEnd extends Node{
 
 	private PinExecute previous;
 	
-	public NodeBasicEnd(float x, float y){
-		super("var color end", x, y, Color.red);
+	public NodeFragSetEnd(float x, float y){
+		super("var color end", x, y, Node.COLOR_END);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 	}

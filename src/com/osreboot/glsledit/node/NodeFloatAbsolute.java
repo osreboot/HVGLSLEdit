@@ -12,7 +12,7 @@ public class NodeFloatAbsolute extends Node{
 	private PinFloat input1, output;
 
 	public NodeFloatAbsolute(float x, float y){
-		super("float absolute", x, y, Node.COLOR_SAMPLE);
+		super("float absolute", x, y, Node.COLOR_MATH_OPERATOR_ADV);
 		input1 = new PinFloat(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1)));
 		output = new PinFloat(this, "out"){

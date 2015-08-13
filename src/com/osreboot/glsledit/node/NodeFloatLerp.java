@@ -12,7 +12,7 @@ public class NodeFloatLerp extends Node{
 	private PinFloat input1, input2, input3, output;
 
 	public NodeFloatLerp(float x, float y){
-		super("float lerp", x, y, Node.COLOR_MLT);
+		super("float lerp", x, y, Node.COLOR_MATH_OPERATOR_ADV);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "lerp");
 		input3 = new PinFloat(this, "2");

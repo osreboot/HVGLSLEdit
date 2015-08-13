@@ -14,7 +14,7 @@ public class NodeFragSet extends Node{
 	private PinColor input;
 	
 	public NodeFragSet(float x, float y){
-		super("fragment color", x, y, Node.COLOR_VARIABLE);
+		super("fragment color set", x, y, Node.COLOR_FRAGMENT);
 		previous = new PinExecute(this);
 		input = new PinColor(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));

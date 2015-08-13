@@ -12,9 +12,6 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.node.NodeArbitraryColor;
 import com.osreboot.glsledit.node.NodeArbitraryFloat;
-import com.osreboot.glsledit.node.NodeBasicEnd;
-import com.osreboot.glsledit.node.NodeBasicTestAdd;
-import com.osreboot.glsledit.node.NodeBasicTestSubtract;
 import com.osreboot.glsledit.node.NodeColorSample;
 import com.osreboot.glsledit.node.NodeColorToFloat;
 import com.osreboot.glsledit.node.NodeEnd;
@@ -22,6 +19,8 @@ import com.osreboot.glsledit.node.NodeFloatAbsolute;
 import com.osreboot.glsledit.node.NodeFloatAdd;
 import com.osreboot.glsledit.node.NodeFloatDivide;
 import com.osreboot.glsledit.node.NodeFloatLerp;
+import com.osreboot.glsledit.node.NodeFloatMax;
+import com.osreboot.glsledit.node.NodeFloatMin;
 import com.osreboot.glsledit.node.NodeFloatMod;
 import com.osreboot.glsledit.node.NodeFloatMultiply;
 import com.osreboot.glsledit.node.NodeFloatPower;
@@ -30,6 +29,8 @@ import com.osreboot.glsledit.node.NodeFloatSubtract;
 import com.osreboot.glsledit.node.NodeFloatToColor;
 import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
+import com.osreboot.glsledit.node.NodeFragSetEnd;
+import com.osreboot.glsledit.node.NodeVariableColorDefine;
 import com.osreboot.glsledit.node.NodeVariableColorGet;
 import com.osreboot.glsledit.node.NodeVariableColorSet;
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -40,9 +41,17 @@ public abstract class Node {
 	@SuppressWarnings("serial")
 	public static class InputInvalidException extends Exception{}
 
-	public static final Color COLOR_ADD = new Color(1, 0.5f, 0), COLOR_SUB = new Color(1, 0, 0.5f),
-			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f), COLOR_MOD = new Color(0, 0.5f, 0, 1f), COLOR_SQRT = new Color(0.5f, 0.25f, 0, 1f), COLOR_POW = new Color(0, 0, 0.5f, 1f),
-			COLOR_CAST = new Color(1f, 0.5f, 0.5f), COLOR_VARIABLE = new Color(0.5f, 0.5f, 1f), COLOR_SAMPLE = new Color(0.4f, 0.4f, 0.4f, 1f);
+	public static final Color 
+	COLOR_START = Color.blue,
+	COLOR_END = Color.red,
+	COLOR_MATH_OPERATOR = new Color(0.7f, 0, 0),
+	COLOR_MATH_OPERATOR_ADV = new Color(0.4f, 0, 0),
+	COLOR_ARBITRARY = new Color(0.2f, 0.75f, 0.2f),
+	COLOR_FRAGMENT = new Color(0.8f, 0, 0.8f),
+	COLOR_SAMPLE = new Color(0, 0.6f, 0.6f),
+	COLOR_CAST = new Color(1f, 0.5f, 0.5f),
+	COLOR_VARIABLE = new Color(0f, 0f, 0.6f);
+
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 
 	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
@@ -52,18 +61,6 @@ public abstract class Node {
 	}
 
 	public static void initialize(){
-		registry.put("bsc end", new HvlAction0(){
-			@Override
-			public void run(){
-				new NodeBasicEnd(HvlCamera.getX(), HvlCamera.getY());
-			}
-		});
-		registry.put("end", new HvlAction0(){
-			@Override
-			public void run(){
-				new NodeEnd(HvlCamera.getX(), HvlCamera.getY());
-			}
-		});
 		registry.put("float", new HvlAction0(){
 			@Override
 			public void run(){
@@ -78,18 +75,6 @@ public abstract class Node {
 				try{
 					new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
 				}catch(Exception e){}
-			}
-		});
-		registry.put("c l add", new HvlAction0(){//TODO add color input and output arguments
-			@Override
-			public void run(){
-				new NodeBasicTestAdd(HvlCamera.getX(), HvlCamera.getY());
-			}
-		});
-		registry.put("c l sub", new HvlAction0(){//TODO add color input and output arguments
-			@Override
-			public void run(){
-				new NodeBasicTestSubtract(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("f add", new HvlAction0(){
@@ -110,16 +95,16 @@ public abstract class Node {
 				new NodeFloatMultiply(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("f mod", new HvlAction0(){
-			@Override
-			public void run(){
-				new NodeFloatMod(HvlCamera.getX(), HvlCamera.getY());
-			}
-		});
 		registry.put("f div", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f mod", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatMod(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("f pow", new HvlAction0(){
@@ -146,6 +131,18 @@ public abstract class Node {
 				new NodeFloatAbsolute(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("f min", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatMin(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f max", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatMax(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
 		registry.put("f to c", new HvlAction0(){
 			@Override
 			public void run(){
@@ -158,10 +155,28 @@ public abstract class Node {
 				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("c var def", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeVariableColorDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
+			}
+		});
 		registry.put("c var get", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeVariableColorGet("color", HvlCamera.getX(), HvlCamera.getY());//TODO input string here
+				try{
+					new NodeVariableColorGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
+			}
+		});
+		registry.put("c var set", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeVariableColorSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
 			}
 		});
 		registry.put("c sample", new HvlAction0(){
@@ -170,7 +185,7 @@ public abstract class Node {
 				new NodeColorSample(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("f loc get", new HvlAction0(){
+		registry.put("frag loc get", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFragLocationGet(HvlCamera.getX(), HvlCamera.getY());
@@ -182,10 +197,16 @@ public abstract class Node {
 				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("c var set", new HvlAction0(){
+		registry.put("set end", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeVariableColorSet("color", HvlCamera.getX(), HvlCamera.getY());//TODO input string here
+				new NodeFragSetEnd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("end", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeEnd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 	}
@@ -207,7 +228,25 @@ public abstract class Node {
 
 		return value;
 	}
-	
+
+	public static String getUserString() throws InputInvalidException{
+		boolean valid = false;
+		String value = "";
+		do{
+			String input = JOptionPane.showInputDialog("Input a string value.");
+			if (input == null) throw new InputInvalidException();
+			try{
+				value = input;
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "Invalid string.");
+				continue;
+			}
+			valid = true;
+		}while(!valid);
+
+		return value;
+	}
+
 	public static Color getUserColor() throws InputInvalidException{
 		boolean valid = false;
 		Color value = new Color(0, 0, 0, 1);
@@ -217,7 +256,7 @@ public abstract class Node {
 			value = new Color(((float)input.getRed())/255f, ((float)input.getGreen())/255f, ((float)input.getBlue())/255f, ((float)input.getAlpha())/255f);
 			valid = true;
 		}while(!valid);
-		
+
 		return value;
 	}
 
