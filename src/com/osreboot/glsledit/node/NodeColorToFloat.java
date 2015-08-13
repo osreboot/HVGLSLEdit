@@ -15,7 +15,7 @@ public class NodeColorToFloat extends Node{
 	
 	public NodeColorToFloat(float x, float y){
 		super("color to float", x, y, Node.COLOR_CAST);
-		input = new PinColor(this, "input");
+		input = new PinColor(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input)));
 		red = new PinFloat(this, "r"){
 			@Override

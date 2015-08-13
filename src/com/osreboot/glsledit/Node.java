@@ -15,12 +15,17 @@ import com.osreboot.glsledit.node.NodeArbitraryFloat;
 import com.osreboot.glsledit.node.NodeBasicEnd;
 import com.osreboot.glsledit.node.NodeBasicTestAdd;
 import com.osreboot.glsledit.node.NodeBasicTestSubtract;
+import com.osreboot.glsledit.node.NodeColorSample;
 import com.osreboot.glsledit.node.NodeColorToFloat;
 import com.osreboot.glsledit.node.NodeEnd;
+import com.osreboot.glsledit.node.NodeFloatAbsolute;
 import com.osreboot.glsledit.node.NodeFloatAdd;
 import com.osreboot.glsledit.node.NodeFloatDivide;
+import com.osreboot.glsledit.node.NodeFloatLerp;
 import com.osreboot.glsledit.node.NodeFloatMod;
 import com.osreboot.glsledit.node.NodeFloatMultiply;
+import com.osreboot.glsledit.node.NodeFloatPower;
+import com.osreboot.glsledit.node.NodeFloatSqrt;
 import com.osreboot.glsledit.node.NodeFloatSubtract;
 import com.osreboot.glsledit.node.NodeFloatToColor;
 import com.osreboot.glsledit.node.NodeFragLocationGet;
@@ -36,8 +41,8 @@ public abstract class Node {
 	public static class InputInvalidException extends Exception{}
 
 	public static final Color COLOR_ADD = new Color(1, 0.5f, 0), COLOR_SUB = new Color(1, 0, 0.5f),
-			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f), COLOR_MOD = new Color(0, 0.5f, 0, 1f),
-			COLOR_CAST = new Color(1f, 0.5f, 0.5f), COLOR_VARIABLE = new Color(0.5f, 0.5f, 1f);
+			COLOR_MLT = new Color(0.75f, 0, 0), COLOR_DIV = new Color(0, 0.5f, 1f), COLOR_MOD = new Color(0, 0.5f, 0, 1f), COLOR_SQRT = new Color(0.5f, 0.25f, 0, 1f), COLOR_POW = new Color(0, 0, 0.5f, 1f),
+			COLOR_CAST = new Color(1f, 0.5f, 0.5f), COLOR_VARIABLE = new Color(0.5f, 0.5f, 1f), COLOR_SAMPLE = new Color(0.4f, 0.4f, 0.4f, 1f);
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 
 	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
@@ -117,6 +122,30 @@ public abstract class Node {
 				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("f pow", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatPower(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f sqrt", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatSqrt(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f lerp", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatLerp(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f abs", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatAbsolute(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
 		registry.put("f to c", new HvlAction0(){
 			@Override
 			public void run(){
@@ -133,6 +162,12 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeVariableColorGet("color", HvlCamera.getX(), HvlCamera.getY());//TODO input string here
+			}
+		});
+		registry.put("c sample", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeColorSample(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("f loc get", new HvlAction0(){

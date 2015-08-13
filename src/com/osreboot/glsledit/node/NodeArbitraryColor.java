@@ -18,7 +18,7 @@ public class NodeArbitraryColor extends Node{
 	public NodeArbitraryColor(Color valueArg, float x, float y){
 		super(round(valueArg.r) + "r " + round(valueArg.g) + "g " + round(valueArg.b) + "b " + round(valueArg.a) + "a ", x, y, Color.orange);
 		value = valueArg;
-		next = new PinColor(this, "output"){
+		next = new PinColor(this, "out"){
 			@Override
 			public String getOutput(){
 				return "vec4(" + value.r + "," + value.g + "," + value.b + "," + value.a + ")";

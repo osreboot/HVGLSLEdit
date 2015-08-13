@@ -18,7 +18,7 @@ public class NodeArbitraryFloat extends Node{
 	public NodeArbitraryFloat(float valueArg, float x, float y){
 		super("float " + valueArg, x, y, Color.orange);
 		value = valueArg;
-		next = new PinFloat(this, "output"){
+		next = new PinFloat(this, "out"){
 			@Override
 			public String getOutput(){
 				return value + "";

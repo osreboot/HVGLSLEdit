@@ -18,7 +18,7 @@ public class NodeVariableColorSet extends Node{
 		super("color variable set", x, y, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);
 		path = pathArg;
-		input = new PinColor(this, "input");
+		input = new PinColor(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
