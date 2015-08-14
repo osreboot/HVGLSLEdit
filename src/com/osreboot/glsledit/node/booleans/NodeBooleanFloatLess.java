@@ -1,22 +1,24 @@
-package com.osreboot.glsledit.node;
+package com.osreboot.glsledit.node.booleans;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
+import com.osreboot.glsledit.pin.PinBoolean;
 import com.osreboot.glsledit.pin.PinFloat;
 
-public class NodeFloatSubtract extends Node{
+public class NodeBooleanFloatLess extends Node{
 
-	private PinFloat input1, input2, output;
+	private PinFloat input1, input2;
+	private PinBoolean output;
 
-	public NodeFloatSubtract(float x, float y){
-		super("float subtract", x, y, Node.COLOR_MATH_OPERATOR);
+	public NodeBooleanFloatLess(float x, float y){
+		super("is float less than", x, y, Node.COLOR_BOOLEAN);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));
-		output = new PinFloat(this, "out"){
+		output = new PinBoolean(this, "out"){
 			@Override
 			public String getOutput(){
 				return getContent().get(0);
@@ -27,7 +29,7 @@ public class NodeFloatSubtract extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		return new ArrayList<String>(Arrays.asList("(" + Pin.getConnectionOutput(input1, "0") + " - " + Pin.getConnectionOutput(input2, "0") + ")"));
+		return new ArrayList<String>(Arrays.asList("(" + Pin.getConnectionOutput(input1, "0") + " < " + Pin.getConnectionOutput(input2, "0") + ")"));
 	}
 
 	@Override

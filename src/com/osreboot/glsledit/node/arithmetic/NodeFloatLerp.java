@@ -1,4 +1,4 @@
-package com.osreboot.glsledit.node;
+package com.osreboot.glsledit.node.arithmetic;
 
 import java.util.ArrayList;
 import java.util.Arrays;

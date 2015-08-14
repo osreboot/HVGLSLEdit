@@ -15,29 +15,53 @@ import com.osreboot.glsledit.node.NodeArbitraryFloat;
 import com.osreboot.glsledit.node.NodeColorSample;
 import com.osreboot.glsledit.node.NodeColorToFloat;
 import com.osreboot.glsledit.node.NodeEnd;
-import com.osreboot.glsledit.node.NodeFloatAbsolute;
-import com.osreboot.glsledit.node.NodeFloatAdd;
-import com.osreboot.glsledit.node.NodeFloatDivide;
-import com.osreboot.glsledit.node.NodeFloatLerp;
-import com.osreboot.glsledit.node.NodeFloatMax;
-import com.osreboot.glsledit.node.NodeFloatMin;
-import com.osreboot.glsledit.node.NodeFloatMod;
-import com.osreboot.glsledit.node.NodeFloatMultiply;
-import com.osreboot.glsledit.node.NodeFloatPower;
-import com.osreboot.glsledit.node.NodeFloatSqrt;
-import com.osreboot.glsledit.node.NodeFloatSubtract;
+import com.osreboot.glsledit.node.NodeEndFragSet;
 import com.osreboot.glsledit.node.NodeFloatToColor;
 import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
-import com.osreboot.glsledit.node.NodeFragSetEnd;
+import com.osreboot.glsledit.node.NodeIf;
+import com.osreboot.glsledit.node.NodeIfEnd;
 import com.osreboot.glsledit.node.NodeVariableColorDefine;
 import com.osreboot.glsledit.node.NodeVariableColorGet;
 import com.osreboot.glsledit.node.NodeVariableColorSet;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatLerp;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatMax;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatMin;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatMod;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatMultiply;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatPower;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatSqrt;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatSubtract;
+import com.osreboot.glsledit.node.booleans.NodeBooleanAnd;
+import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
+import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
+import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class Node {
 
+	//Node TODOS:
+	/*
+	 * NodeBooleanGreater
+	 * NodeBooleanEqual
+	 * NodeBooleanLess
+	 * NodeBooleanGreaterOrEqual
+	 * NodeBooleanLessOrEqual
+	 * NodeBooleanInRange
+	 * 
+	 * NodeBooleanOr
+	 * NodeBooleanAnd
+	 * 
+	 * 
+	 * NodeIf add else functions
+	 * 
+	 * Convert pins to using a abstract PinType
+	 */
+	
 	@SuppressWarnings("serial")
 	public static class InputInvalidException extends Exception{}
 
@@ -50,7 +74,9 @@ public abstract class Node {
 	COLOR_FRAGMENT = new Color(0.8f, 0, 0.8f),
 	COLOR_SAMPLE = new Color(0, 0.6f, 0.6f),
 	COLOR_CAST = new Color(1f, 0.5f, 0.5f),
-	COLOR_VARIABLE = new Color(0f, 0f, 0.6f);
+	COLOR_VARIABLE = new Color(0, 0, 0.6f),
+	COLOR_IF = new Color(1f, 0.5f, 0),
+	COLOR_BOOLEAN = new Color(0, 0.6f, 0);
 
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 
@@ -75,6 +101,42 @@ public abstract class Node {
 				try{
 					new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
 				}catch(Exception e){}
+			}
+		});
+		registry.put("if", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeIf(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("if end", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeIfEnd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("b and", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBooleanAnd(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("b or", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBooleanOr(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("b f grtr", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBooleanFloatGreater(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("b f less", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBooleanFloatLess(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("f add", new HvlAction0(){
@@ -197,10 +259,10 @@ public abstract class Node {
 				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("set end", new HvlAction0(){
+		registry.put("end frag", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFragSetEnd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeEndFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("end", new HvlAction0(){

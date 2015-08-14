@@ -1,4 +1,4 @@
-package com.osreboot.glsledit.node;
+package com.osreboot.glsledit.node.arithmetic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,12 +7,12 @@ import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinFloat;
 
-public class NodeFloatMod extends Node{
+public class NodeFloatAdd extends Node{
 
 	private PinFloat input1, input2, output;
 
-	public NodeFloatMod(float x, float y){
-		super("float mod", x, y, Node.COLOR_MATH_OPERATOR_ADV);
+	public NodeFloatAdd(float x, float y){
+		super("float add", x, y, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));
@@ -27,7 +27,7 @@ public class NodeFloatMod extends Node{
 
 	@Override
 	public ArrayList<String> getContent(){
-		return new ArrayList<String>(Arrays.asList("mod(" + Pin.getConnectionOutput(input1, "0") + ", " + Pin.getConnectionOutput(input2, "0") + ")"));
+		return new ArrayList<String>(Arrays.asList("(" + Pin.getConnectionOutput(input1, "0") + " + " + Pin.getConnectionOutput(input2, "0") + ")"));
 	}
 
 	@Override
