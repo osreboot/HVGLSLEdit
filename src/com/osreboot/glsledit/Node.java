@@ -12,19 +12,17 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.node.NodeArbitraryColor;
 import com.osreboot.glsledit.node.NodeArbitraryFloat;
+import com.osreboot.glsledit.node.NodeClose;
 import com.osreboot.glsledit.node.NodeColorSample;
 import com.osreboot.glsledit.node.NodeColorToFloat;
 import com.osreboot.glsledit.node.NodeEnd;
 import com.osreboot.glsledit.node.NodeEndFragSet;
 import com.osreboot.glsledit.node.NodeFloatToColor;
+import com.osreboot.glsledit.node.NodeFor;
 import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
 import com.osreboot.glsledit.node.NodeIf;
 import com.osreboot.glsledit.node.NodeIfElse;
-import com.osreboot.glsledit.node.NodeClose;
-import com.osreboot.glsledit.node.NodeVariableColorDefine;
-import com.osreboot.glsledit.node.NodeVariableColorGet;
-import com.osreboot.glsledit.node.NodeVariableColorSet;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
@@ -41,6 +39,12 @@ import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
 import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
 import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
 import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
+import com.osreboot.glsledit.node.variable.NodeVariableColorDefine;
+import com.osreboot.glsledit.node.variable.NodeVariableColorGet;
+import com.osreboot.glsledit.node.variable.NodeVariableColorSet;
+import com.osreboot.glsledit.node.variable.NodeVariableFloatDefine;
+import com.osreboot.glsledit.node.variable.NodeVariableFloatGet;
+import com.osreboot.glsledit.node.variable.NodeVariableFloatSet;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlCamera;
 
@@ -52,6 +56,8 @@ public abstract class Node {
 	 * NodeBooleanGreaterOrEqual
 	 * NodeBooleanLessOrEqual
 	 * NodeBooleanInRange
+	 * 
+	 * Color operators
 	 * 
 	 * Convert pins to using a abstract PinType
 	 */
@@ -107,6 +113,14 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeIfElse(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("for", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeFor(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
 			}
 		});
 		registry.put("close", new HvlAction0(){
@@ -209,6 +223,30 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeFloatMax(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f var def", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeVariableFloatDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
+			}
+		});
+		registry.put("f var get", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeVariableFloatGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
+			}
+		});
+		registry.put("f var set", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					new NodeVariableFloatSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+				}catch(Exception e){}
 			}
 		});
 		registry.put("f to c", new HvlAction0(){

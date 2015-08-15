@@ -1,21 +1,21 @@
-package com.osreboot.glsledit.node;
+package com.osreboot.glsledit.node.variable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
-import com.osreboot.glsledit.pin.PinColor;
+import com.osreboot.glsledit.pin.PinFloat;
 
-public class NodeVariableColorGet extends Node{
+public class NodeVariableFloatGet extends Node{
 
 	private String path;
-	private PinColor output;
+	private PinFloat output;
 	
-	public NodeVariableColorGet(String pathArg, float x, float y){
+	public NodeVariableFloatGet(String pathArg, float x, float y){
 		super("get " + pathArg, x, y, Node.COLOR_VARIABLE);
 		path = pathArg;
-		output = new PinColor(this, "out"){
+		output = new PinFloat(this, "out"){
 			@Override
 			public String getOutput(){
 				return path;

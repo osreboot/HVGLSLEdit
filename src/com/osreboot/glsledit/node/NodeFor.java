@@ -5,28 +5,28 @@ import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
-import com.osreboot.glsledit.pin.PinColor;
 import com.osreboot.glsledit.pin.PinExecute;
+import com.osreboot.glsledit.pin.PinFloat;
 
-public class NodeVariableColorSet extends Node{
+public class NodeFor extends Node{
 
 	private PinExecute previous, next;
-	private String path;
-	private PinColor input;
+	private String var;
+	private PinFloat count;
 	
-	public NodeVariableColorSet(String pathArg, float x, float y){
-		super("set " + pathArg, x, y, Node.COLOR_VARIABLE);
+	public NodeFor(String varArg, float x, float y){
+		super("for " + varArg, x, y, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
-		path = pathArg;
-		input = new PinColor(this, "in");
-		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));
+		var = varArg;
+		count = new PinFloat(this, "count");
+		setInputs(new ArrayList<Pin>(Arrays.asList(previous, count)));
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
 	@Override
 	public ArrayList<String> getContent(){
-		return new ArrayList<String>(Arrays.asList(path + " = " + Pin.getConnectionOutput(input, Node.DEFAULT_COLOR) + ";"));
+		return new ArrayList<String>(Arrays.asList("for(float " + var + " = 0; " + var + " < " + Pin.getConnectionOutput(count, "0") + "; " + var + "++){"));
 	}
 
 	@Override
