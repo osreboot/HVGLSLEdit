@@ -20,7 +20,8 @@ import com.osreboot.glsledit.node.NodeFloatToColor;
 import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
 import com.osreboot.glsledit.node.NodeIf;
-import com.osreboot.glsledit.node.NodeIfEnd;
+import com.osreboot.glsledit.node.NodeIfElse;
+import com.osreboot.glsledit.node.NodeClose;
 import com.osreboot.glsledit.node.NodeVariableColorDefine;
 import com.osreboot.glsledit.node.NodeVariableColorGet;
 import com.osreboot.glsledit.node.NodeVariableColorSet;
@@ -38,6 +39,7 @@ import com.osreboot.glsledit.node.arithmetic.NodeFloatSubtract;
 import com.osreboot.glsledit.node.booleans.NodeBooleanAnd;
 import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
 import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
+import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
 import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlCamera;
@@ -46,18 +48,10 @@ public abstract class Node {
 
 	//Node TODOS:
 	/*
-	 * NodeBooleanGreater
 	 * NodeBooleanEqual
-	 * NodeBooleanLess
 	 * NodeBooleanGreaterOrEqual
 	 * NodeBooleanLessOrEqual
 	 * NodeBooleanInRange
-	 * 
-	 * NodeBooleanOr
-	 * NodeBooleanAnd
-	 * 
-	 * 
-	 * NodeIf add else functions
 	 * 
 	 * Convert pins to using a abstract PinType
 	 */
@@ -75,7 +69,7 @@ public abstract class Node {
 	COLOR_SAMPLE = new Color(0, 0.6f, 0.6f),
 	COLOR_CAST = new Color(1f, 0.5f, 0.5f),
 	COLOR_VARIABLE = new Color(0, 0, 0.6f),
-	COLOR_IF = new Color(1f, 0.5f, 0),
+	COLOR_BLOCK = new Color(1f, 0.5f, 0),
 	COLOR_BOOLEAN = new Color(0, 0.6f, 0);
 
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
@@ -109,10 +103,16 @@ public abstract class Node {
 				new NodeIf(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("if end", new HvlAction0(){
+		registry.put("else", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeIfEnd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeIfElse(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("close", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeClose(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("b and", new HvlAction0(){
@@ -125,6 +125,12 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeBooleanOr(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("b not", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeBooleanNot(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("b f grtr", new HvlAction0(){

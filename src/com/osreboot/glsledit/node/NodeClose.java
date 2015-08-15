@@ -7,12 +7,12 @@ import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
 
-public class NodeIfEnd extends Node{
+public class NodeClose extends Node{
 
 	private PinExecute previous, next;
 	
-	public NodeIfEnd(float x, float y){
-		super("if end", x, y, Node.COLOR_IF);
+	public NodeClose(float x, float y){
+		super("close", x, y, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 		next = new PinExecute(this);

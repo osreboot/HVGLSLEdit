@@ -5,26 +5,23 @@ import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Pin;
-import com.osreboot.glsledit.pin.PinBoolean;
 import com.osreboot.glsledit.pin.PinExecute;
 
-public class NodeIf extends Node{
+public class NodeIfElse extends Node{
 
 	private PinExecute previous, next;
-	private PinBoolean input;
 	
-	public NodeIf(float x, float y){
-		super("if", x, y, Node.COLOR_BLOCK);
+	public NodeIfElse(float x, float y){
+		super("else", x, y, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
-		input = new PinBoolean(this, "in");
-		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));
+		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
 	@Override
 	public ArrayList<String> getContent(){
-		return new ArrayList<String>(Arrays.asList("if(" + Pin.getConnectionOutput(input, "true") + "){"));
+		return new ArrayList<String>(Arrays.asList("}else{"));
 	}
 
 	@Override
