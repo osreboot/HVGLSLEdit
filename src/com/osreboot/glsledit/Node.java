@@ -23,6 +23,10 @@ import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
 import com.osreboot.glsledit.node.NodeIf;
 import com.osreboot.glsledit.node.NodeIfElse;
+import com.osreboot.glsledit.node.arithmetic.NodeColorAdd;
+import com.osreboot.glsledit.node.arithmetic.NodeColorDivide;
+import com.osreboot.glsledit.node.arithmetic.NodeColorMultiply;
+import com.osreboot.glsledit.node.arithmetic.NodeColorSubtract;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
@@ -249,16 +253,28 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
-		registry.put("f to c", new HvlAction0(){
+		registry.put("c add", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorAdd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
-		registry.put("c to f", new HvlAction0(){
+		registry.put("c sub", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorSubtract(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c mlt", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeColorMultiply(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c div", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeColorDivide(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("c var def", new HvlAction0(){
@@ -289,6 +305,18 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeColorSample(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("f to c", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("c to f", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("frag loc get", new HvlAction0(){
