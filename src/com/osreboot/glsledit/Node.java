@@ -50,6 +50,7 @@ import com.osreboot.glsledit.node.variable.NodeVariableFloatDefine;
 import com.osreboot.glsledit.node.variable.NodeVariableFloatGet;
 import com.osreboot.glsledit.node.variable.NodeVariableFloatSet;
 import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class Node {
@@ -95,7 +96,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeArbitraryFloat(getUserFloat(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryFloat node = new NodeArbitraryFloat(getUserFloat(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeArbitraryFloat)node).setValue(getUserFloat());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -103,7 +112,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryColor node = new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeArbitraryColor)node).setValue(getUserColor());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -123,7 +140,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeFor(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeFor node = new NodeFor(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeFor)node).setVar(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -233,7 +258,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableFloatDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatDefine node = new NodeVariableFloatDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableFloatDefine)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -241,7 +274,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableFloatGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatGet node = new NodeVariableFloatGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableFloatGet)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -249,7 +290,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableFloatSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatSet node = new NodeVariableFloatSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableFloatSet)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -281,7 +330,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableColorDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorDefine node = new NodeVariableColorDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableColorDefine)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -289,7 +346,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableColorGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorGet node = new NodeVariableColorGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableColorGet)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -297,7 +362,15 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					new NodeVariableColorSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorSet node = new NodeVariableColorSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeVariableColorSet)node).setPath(getUserString());
+							}catch(Exception e){}
+						}
+					});
 				}catch(Exception e){}
 			}
 		});
@@ -417,6 +490,8 @@ public abstract class Node {
 	private Color color;
 	private String name;
 
+	private HvlAction1<Node> onDialogueClick;
+
 	public Node(String nameArg, float xArg, float yArg, Color colorArg){
 		name = nameArg;
 		x = xArg;
@@ -429,6 +504,10 @@ public abstract class Node {
 		return name;
 	}
 
+	public void setName(String nameArg){
+		name = nameArg;
+	}
+	
 	public float getX(){
 		return x;
 	}
@@ -483,6 +562,14 @@ public abstract class Node {
 
 	public ArrayList<Pin> getOutputs(){
 		return outputs;
+	}
+
+	public HvlAction1<Node> getOnDialogueClick() {
+		return onDialogueClick;
+	}
+
+	public void setOnDialogueClick(HvlAction1<Node> onDialogueClickArg) {
+		onDialogueClick = onDialogueClickArg;
 	}
 
 }

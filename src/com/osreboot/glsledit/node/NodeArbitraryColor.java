@@ -27,6 +27,15 @@ public class NodeArbitraryColor extends Node{
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
+	public Color getValue(){
+		return value;
+	}
+
+	public void setValue(Color valueArg){
+		value = valueArg;
+		setName(round(valueArg.r) + "r " + round(valueArg.g) + "g " + round(valueArg.b) + "b " + round(valueArg.a) + "a ");
+	}
+
 	@Override
 	public ArrayList<String> getContent(){
 		return null;

@@ -73,8 +73,17 @@ public class Interactor {
 				}
 			}
 		}
+
+		if(mouseNode == null && mousePin == null){
+			for(Node n : Node.getNodes()){
+				float x = n.getX() - HvlCamera.getX() + (Display.getWidth()/2);
+				float y = n.getY() - HvlCamera.getY() + (Display.getHeight()/2);
+				if(HvlCursor.getCursorX() > x + 32 && HvlCursor.getCursorX() < x + 256 &&
+						HvlCursor.getCursorY() > y && HvlCursor.getCursorY() < y + 32) if(n.getOnDialogueClick() != null) n.getOnDialogueClick().run(n);
+			}
+		}
 	}
-	
+
 	private static void onReleaseClick(){
 		if(isHoveringRemove()) Node.removeNode(mouseNode);
 		if(mousePin != null){
@@ -95,7 +104,7 @@ public class Interactor {
 			if(!set) mousePin.resetConnections();
 		}
 	}
-	
+
 	public static boolean isHoveringRemove(){
 		return HvlCursor.getCursorX() > Main.getRemoveButton().getX() && HvlCursor.getCursorX() < Main.getRemoveButton().getX() + Main.getRemoveButton().getWidth() && 
 				HvlCursor.getCursorY() > Main.getRemoveButton().getY() && HvlCursor.getCursorY() < Main.getRemoveButton().getY() + Main.getRemoveButton().getHeight()&& mouseNode != null && mouseNode != Main.getStarterNode();

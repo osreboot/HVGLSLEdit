@@ -24,6 +24,15 @@ public class NodeFor extends Node{
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
+	public String getVar(){
+		return var;
+	}
+
+	public void setVar(String varArg){
+		var = varArg;
+		setName("for " + varArg);
+	}
+	
 	@Override
 	public ArrayList<String> getContent(){
 		return new ArrayList<String>(Arrays.asList("for(float " + var + " = 0; " + var + " < " + Pin.getConnectionOutput(count, "0") + "; " + var + "++){"));

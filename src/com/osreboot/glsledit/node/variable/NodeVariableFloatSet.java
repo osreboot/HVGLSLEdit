@@ -24,6 +24,15 @@ public class NodeVariableFloatSet extends Node{
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
+	public String getPath(){
+		return path;
+	}
+
+	public void setPath(String pathArg){
+		path = pathArg;
+		setName("set " + pathArg);
+	}
+	
 	@Override
 	public ArrayList<String> getContent(){
 		return new ArrayList<String>(Arrays.asList(path + " = " + Pin.getConnectionOutput(input, "0") + ";"));

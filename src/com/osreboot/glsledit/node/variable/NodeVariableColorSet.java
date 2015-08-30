@@ -23,6 +23,15 @@ public class NodeVariableColorSet extends Node{
 		next = new PinExecute(this);
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
+	
+	public String getPath(){
+		return path;
+	}
+
+	public void setPath(String pathArg){
+		path = pathArg;
+		setName("set " + pathArg);
+	}
 
 	@Override
 	public ArrayList<String> getContent(){

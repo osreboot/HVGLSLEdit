@@ -24,6 +24,15 @@ public class NodeVariableColorDefine extends Node{
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
+	public String getPath(){
+		return path;
+	}
+
+	public void setPath(String pathArg){
+		path = pathArg;
+		setName("def " + pathArg);
+	}
+
 	@Override
 	public ArrayList<String> getContent(){
 		return new ArrayList<String>(Arrays.asList("vec4 " + path + " = " + Pin.getConnectionOutput(input, Node.DEFAULT_COLOR) + ";"));

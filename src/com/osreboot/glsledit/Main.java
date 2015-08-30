@@ -118,7 +118,8 @@ public class Main extends HvlTemplateInteg2D{
 				component.draw(delta);
 			}
 		});
-		sideBar.setAlign(0.5f);
+		sideBar.setxAlign(0.5f);
+		sideBar.setyAlign(0.5f);
 		sideBar.setBorderU(16);
 		sideBar.setBorderD(16);
 		main.add(sideBar);

@@ -23,6 +23,15 @@ public class NodeVariableFloatGet extends Node{
 		};
 		setOutputs(new ArrayList<Pin>(Arrays.asList(output)));
 	}
+	
+	public String getPath(){
+		return path;
+	}
+
+	public void setPath(String pathArg){
+		path = pathArg;
+		setName("get" + pathArg);
+	}
 
 	@Override
 	public ArrayList<String> getContent(){

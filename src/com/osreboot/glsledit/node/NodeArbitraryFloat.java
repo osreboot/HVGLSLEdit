@@ -25,6 +25,15 @@ public class NodeArbitraryFloat extends Node{
 		setOutputs(new ArrayList<Pin>(Arrays.asList(next)));
 	}
 
+	public float getValue(){
+		return value;
+	}
+
+	public void setValue(float valueArg){
+		value = valueArg;
+		setName("float " + valueArg);
+	}
+
 	@Override
 	public ArrayList<String> getContent(){
 		return null;
