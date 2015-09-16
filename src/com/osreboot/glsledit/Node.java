@@ -1,6 +1,6 @@
 package com.osreboot.glsledit;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -23,6 +23,7 @@ import com.osreboot.glsledit.node.NodeFragLocationGet;
 import com.osreboot.glsledit.node.NodeFragSet;
 import com.osreboot.glsledit.node.NodeIf;
 import com.osreboot.glsledit.node.NodeIfElse;
+import com.osreboot.glsledit.node.NodeSingleFloatToColor;
 import com.osreboot.glsledit.node.arithmetic.NodeColorAdd;
 import com.osreboot.glsledit.node.arithmetic.NodeColorDivide;
 import com.osreboot.glsledit.node.arithmetic.NodeColorMultiply;
@@ -384,6 +385,12 @@ public abstract class Node {
 			@Override
 			public void run(){
 				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
+		registry.put("sf to c", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeSingleFloatToColor(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
 		registry.put("c to f", new HvlAction0(){
