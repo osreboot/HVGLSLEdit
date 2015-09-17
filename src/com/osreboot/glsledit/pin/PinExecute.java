@@ -1,5 +1,7 @@
 package com.osreboot.glsledit.pin;
 
+import org.newdawn.slick.Color;
+
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Overlay;
 import com.osreboot.glsledit.Pin;
@@ -27,7 +29,7 @@ public class PinExecute extends Pin{
 
 	@Override
 	public void drawConnections(float deltaArg){
-		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()));
+		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()), Color.blue);
 	}
 
 	@Override

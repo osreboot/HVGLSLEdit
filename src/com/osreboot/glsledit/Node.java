@@ -65,6 +65,8 @@ public abstract class Node {
 	 * 
 	 * Color operators
 	 * 
+	 * NodeDisplayDimensions
+	 * 
 	 * Convert pins to using a abstract PinType
 	 */
 	
