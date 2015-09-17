@@ -32,7 +32,7 @@ public class Interactor {
 			}
 
 			if(mousePin != null){
-				hvlDrawLine(mousePin.getX(), mousePin.getY(), (float)HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth()/2), (float)HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight()/2), Color.green);
+				hvlDrawLine(mousePin.getX(), mousePin.getY(), (float)HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth()/2), (float)HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight()/2), Color.yellow);
 			}
 
 		}else{
