@@ -10,6 +10,12 @@ import com.osreboot.ridhvl.HvlCoord;
 
 public class Overlay {
 
+	public static final Color WIRE_BOOLEAN = new Color(0.4f, 0.4f, 1f), 
+			WIRE_COLOR = new Color(0.4f, 0.1f, 0.4f), 
+			WIRE_EXECUTE = new Color(1f, 0.4f, 0.4f), 
+			WIRE_FLOAT = new Color(1f, 0.8f, 0.4f), 
+			WIRE_TEMPORARY = Color.gray;
+	
 	private static ArrayList<HvlCoord> startValues = new ArrayList<>();
 	private static ArrayList<HvlCoord> endValues = new ArrayList<>();
 	private static ArrayList<Color> colorValues = new ArrayList<>();
