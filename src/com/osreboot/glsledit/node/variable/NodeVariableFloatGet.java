@@ -13,7 +13,7 @@ public class NodeVariableFloatGet extends Node{
 	private PinFloat output;
 	
 	public NodeVariableFloatGet(String pathArg, float x, float y){
-		super("get " + pathArg, x, y, Node.COLOR_VARIABLE);
+		super("get " + pathArg, x, y, Node.WIDTH_SHORT, Node.COLOR_VARIABLE);
 		path = pathArg;
 		output = new PinFloat(this, "out"){
 			@Override

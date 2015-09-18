@@ -12,7 +12,7 @@ public class NodeBooleanAnd extends Node{
 	private PinBoolean input1, input2, output;
 
 	public NodeBooleanAnd(float x, float y){
-		super("and", x, y, Node.COLOR_BOOLEAN);
+		super("and", x, y, Node.WIDTH_NORMAL, Node.COLOR_BOOLEAN);
 		input1 = new PinBoolean(this, "1");
 		input2 = new PinBoolean(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

@@ -12,7 +12,7 @@ public class NodeColorDivide extends Node{
 	private PinColor input1, input2, output;
 
 	public NodeColorDivide(float x, float y){
-		super("color divide", x, y, Node.COLOR_MATH_OPERATOR);
+		super("color divide", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinColor(this, "1");
 		input2 = new PinColor(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

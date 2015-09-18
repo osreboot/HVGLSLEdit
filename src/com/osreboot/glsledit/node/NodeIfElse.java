@@ -12,7 +12,7 @@ public class NodeIfElse extends Node{
 	private PinExecute previous, next;
 	
 	public NodeIfElse(float x, float y){
-		super("else", x, y, Node.COLOR_BLOCK);
+		super("else", x, y, Node.WIDTH_EXTRASHORT, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 		next = new PinExecute(this);

@@ -14,7 +14,7 @@ public class NodeFloatToColor extends Node{
 	private PinColor output;
 	
 	public NodeFloatToColor(float x, float y){
-		super("float to color", x, y, Node.COLOR_CAST);
+		super("float to color", x, y, Node.WIDTH_NORMAL, Node.COLOR_CAST);
 		red = new PinFloat(this, "r");
 		green = new PinFloat(this, "g");
 		blue = new PinFloat(this, "b");

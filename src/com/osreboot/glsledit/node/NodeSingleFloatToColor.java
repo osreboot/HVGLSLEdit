@@ -15,7 +15,7 @@ public class NodeSingleFloatToColor extends Node{
 	private PinColor output;
 	
 	public NodeSingleFloatToColor(float x, float y){
-		super("single float to color", x, y, Node.COLOR_CAST);
+		super("single float to color", x, y, Node.WIDTH_LARGE, Node.COLOR_CAST);
 		input = new PinFloat(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input)));
 		output = new PinColor(this, "out"){

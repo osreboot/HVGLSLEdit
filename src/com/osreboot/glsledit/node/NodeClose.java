@@ -12,7 +12,7 @@ public class NodeClose extends Node{
 	private PinExecute previous, next;
 	
 	public NodeClose(float x, float y){
-		super("close", x, y, Node.COLOR_BLOCK);
+		super("close", x, y, Node.WIDTH_EXTRASHORT, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 		next = new PinExecute(this);

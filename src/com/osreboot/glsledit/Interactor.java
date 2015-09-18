@@ -78,7 +78,7 @@ public class Interactor {
 			for(Node n : Node.getNodes()){
 				float x = n.getX() - HvlCamera.getX() + (Display.getWidth()/2);
 				float y = n.getY() - HvlCamera.getY() + (Display.getHeight()/2);
-				if(HvlCursor.getCursorX() > x + 32 && HvlCursor.getCursorX() < x + 256 &&
+				if(HvlCursor.getCursorX() > x + 32 && HvlCursor.getCursorX() < x + n.getWidth() &&
 						HvlCursor.getCursorY() > y && HvlCursor.getCursorY() < y + 32) if(n.getOnDialogueClick() != null) n.getOnDialogueClick().run(n);
 			}
 		}

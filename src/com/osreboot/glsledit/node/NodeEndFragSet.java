@@ -12,7 +12,7 @@ public class NodeEndFragSet extends Node{
 	private PinExecute previous;
 	
 	public NodeEndFragSet(float x, float y){
-		super("end var color", x, y, Node.COLOR_END);
+		super("end var color", x, y, Node.WIDTH_SHORT, Node.COLOR_END);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 	}

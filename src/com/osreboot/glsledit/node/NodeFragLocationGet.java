@@ -12,7 +12,7 @@ public class NodeFragLocationGet extends Node{
 	private PinFloat outputX, outputY;
 	
 	public NodeFragLocationGet(float x, float y){
-		super("frag loc get", x, y, Node.COLOR_FRAGMENT);
+		super("frag loc get", x, y, Node.WIDTH_SHORT, Node.COLOR_FRAGMENT);
 		outputX = new PinFloat(this, "x"){
 			@Override
 			public String getOutput(){

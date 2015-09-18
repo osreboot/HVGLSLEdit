@@ -12,7 +12,7 @@ public class NodeBooleanNot extends Node{
 	private PinBoolean input1, output;
 
 	public NodeBooleanNot(float x, float y){
-		super("not", x, y, Node.COLOR_BOOLEAN);
+		super("not", x, y, Node.WIDTH_NORMAL, Node.COLOR_BOOLEAN);
 		input1 = new PinBoolean(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1)));
 		output = new PinBoolean(this, "out"){

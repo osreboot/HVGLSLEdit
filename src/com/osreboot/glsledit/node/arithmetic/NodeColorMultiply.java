@@ -12,7 +12,7 @@ public class NodeColorMultiply extends Node{
 	private PinColor input1, input2, output;
 
 	public NodeColorMultiply(float x, float y){
-		super("color multiply", x, y, Node.COLOR_MATH_OPERATOR);
+		super("color multiply", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinColor(this, "1");
 		input2 = new PinColor(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

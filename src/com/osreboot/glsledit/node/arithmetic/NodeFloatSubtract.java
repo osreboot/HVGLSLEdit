@@ -12,7 +12,7 @@ public class NodeFloatSubtract extends Node{
 	private PinFloat input1, input2, output;
 
 	public NodeFloatSubtract(float x, float y){
-		super("float subtract", x, y, Node.COLOR_MATH_OPERATOR);
+		super("float subtract", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));
