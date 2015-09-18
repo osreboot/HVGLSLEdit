@@ -27,7 +27,7 @@ public class PinExecute extends Pin{
 
 	@Override
 	public void drawConnections(float deltaArg){
-		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()), Overlay.WIRE_EXECUTE);
+		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()), Overlay.WIRE_EXECUTE, Overlay.WIRE_THICK);
 	}
 
 	@Override

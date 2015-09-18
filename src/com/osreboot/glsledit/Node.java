@@ -30,6 +30,7 @@ import com.osreboot.glsledit.node.arithmetic.NodeColorMultiply;
 import com.osreboot.glsledit.node.arithmetic.NodeColorSubtract;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
+import com.osreboot.glsledit.node.arithmetic.NodeFloatDistance;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatLerp;
 import com.osreboot.glsledit.node.arithmetic.NodeFloatMax;
@@ -44,6 +45,7 @@ import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
 import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
 import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
 import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
+import com.osreboot.glsledit.node.organization.NodeOrganizationConnector;
 import com.osreboot.glsledit.node.variable.NodeVariableColorDefine;
 import com.osreboot.glsledit.node.variable.NodeVariableColorGet;
 import com.osreboot.glsledit.node.variable.NodeVariableColorSet;
@@ -63,11 +65,11 @@ public abstract class Node {
 	 * NodeBooleanLessOrEqual
 	 * NodeBooleanInRange
 	 * 
-	 * Color operators
-	 * 
 	 * NodeDisplayDimensions
 	 * 
-	 * Convert pins to using a abstract PinType
+	 * NodeTime
+	 * 
+	 * NodeColorValueSet
 	 */
 	
 	@SuppressWarnings("serial")
@@ -84,7 +86,8 @@ public abstract class Node {
 	COLOR_CAST = new Color(1f, 0.5f, 0.5f),
 	COLOR_VARIABLE = new Color(0, 0, 0.6f),
 	COLOR_BLOCK = new Color(1f, 0.5f, 0),
-	COLOR_BOOLEAN = new Color(0, 0.6f, 0);
+	COLOR_BOOLEAN = new Color(0, 0.6f, 0),
+	COLOR_ORGANIZATION = new Color(0.1f, 0.1f, 0.1f);
 
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 
@@ -257,6 +260,12 @@ public abstract class Node {
 				new NodeFloatMax(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("f dist", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeFloatDistance(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
 		registry.put("f var def", new HvlAction0(){
 			@Override
 			public void run(){
@@ -413,6 +422,12 @@ public abstract class Node {
 				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("org ctr", new HvlAction0(){
+			@Override
+			public void run(){
+				new NodeOrganizationConnector(HvlCamera.getX(), HvlCamera.getY());
+			}
+		});
 		registry.put("end frag", new HvlAction0(){
 			@Override
 			public void run(){
@@ -493,7 +508,7 @@ public abstract class Node {
 		node = null;
 	}
 
-	public static final float WIDTH_EXTRASHORT = 128, WIDTH_SHORT = 192, WIDTH_MEDSHORT = 224, WIDTH_NORMAL = 256, WIDTH_LARGE = 288;
+	public static final float WIDTH_MEGASHORT = 64, WIDTH_EXTRASHORT = 128, WIDTH_SHORT = 192, WIDTH_MEDSHORT = 224, WIDTH_NORMAL = 256, WIDTH_LARGE = 288;
 	
 	private ArrayList<Pin> inputs = new ArrayList<>(), outputs = new ArrayList<>();
 

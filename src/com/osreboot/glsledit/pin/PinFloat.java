@@ -25,7 +25,7 @@ public class PinFloat extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_FLOAT);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_FLOAT, Overlay.WIRE_MEDTHICK);
 		}
 	}
 

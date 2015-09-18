@@ -25,7 +25,7 @@ public class PinColor extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_COLOR);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_COLOR, Overlay.WIRE_MEDTHICK);
 		}
 	}
 
