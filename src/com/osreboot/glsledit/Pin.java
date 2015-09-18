@@ -39,12 +39,12 @@ public abstract class Pin {
 		hvlDrawQuad(getX() - 8, getY() - 8, 16, 16, 
 				input ? new Color(parent.getColor().r + 0.2f, parent.getColor().g + 0.2f, parent.getColor().b + 0.2f, 1) :
 					new Color(parent.getColor().r - 0.2f, parent.getColor().g - 0.2f, parent.getColor().b - 0.2f, 1));
-		Main.font.drawWord(name, parent.getX() + (input ? 16 : 240) - (input ? 0 : Main.font.getLineWidth(name)/10), getY() - 8, 0.1f, Color.white);
+		Main.font.drawWord(name, parent.getX() + (input ? 16 : parent.getWidth() - 16) - (input ? 0 : Main.font.getLineWidth(name)/10), getY() - 8, 0.1f, Color.white);
 		if(!input) drawConnections(delta);
 	}
 
 	public float getX(){
-		return parent.getX()  + (parent.getInputs().contains(this) ? 0 : 256);
+		return parent.getX()  + (parent.getInputs().contains(this) ? 0 : parent.getWidth());
 	}
 	
 	public float getY(){

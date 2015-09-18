@@ -12,7 +12,7 @@ public class NodeFloatMod extends Node{
 	private PinFloat input1, input2, output;
 
 	public NodeFloatMod(float x, float y){
-		super("float mod", x, y, Node.COLOR_MATH_OPERATOR_ADV);
+		super("float mod", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR_ADV);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

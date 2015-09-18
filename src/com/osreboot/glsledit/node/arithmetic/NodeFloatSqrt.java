@@ -12,7 +12,7 @@ public class NodeFloatSqrt extends Node{
 	private PinFloat input1, output;
 
 	public NodeFloatSqrt(float x, float y){
-		super("float sqrt", x, y, Node.COLOR_MATH_OPERATOR_ADV);
+		super("float sqrt", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR_ADV);
 		input1 = new PinFloat(this, "1");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1)));
 		output = new PinFloat(this, "out"){

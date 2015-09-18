@@ -14,7 +14,7 @@ public class NodeColorSample extends Node{//TODO add a system to get frame heigh
 	private PinColor output;
 	
 	public NodeColorSample(float x, float y){
-		super("color sample", x, y, Node.COLOR_SAMPLE);
+		super("color sample", x, y, Node.WIDTH_NORMAL, Node.COLOR_SAMPLE);
 		inputX = new PinFloat(this, "x");
 		inputY = new PinFloat(this, "y");
 		setInputs(new ArrayList<Pin>(Arrays.asList(inputX, inputY)));

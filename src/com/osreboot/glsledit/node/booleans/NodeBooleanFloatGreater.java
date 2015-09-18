@@ -14,7 +14,7 @@ public class NodeBooleanFloatGreater extends Node{
 	private PinBoolean output;
 
 	public NodeBooleanFloatGreater(float x, float y){
-		super("is float greater than", x, y, Node.COLOR_BOOLEAN);
+		super("is float greater than", x, y, Node.WIDTH_LARGE, Node.COLOR_BOOLEAN);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

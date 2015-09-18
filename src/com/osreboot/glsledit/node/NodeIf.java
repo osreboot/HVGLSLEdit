@@ -14,7 +14,7 @@ public class NodeIf extends Node{
 	private PinBoolean input;
 	
 	public NodeIf(float x, float y){
-		super("if", x, y, Node.COLOR_BLOCK);
+		super("if", x, y, Node.WIDTH_EXTRASHORT, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
 		input = new PinBoolean(this, "in");
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous, input)));

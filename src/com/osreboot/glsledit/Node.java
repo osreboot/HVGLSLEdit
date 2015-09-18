@@ -493,18 +493,21 @@ public abstract class Node {
 		node = null;
 	}
 
+	public static final float WIDTH_EXTRASHORT = 128, WIDTH_SHORT = 192, WIDTH_MEDSHORT = 224, WIDTH_NORMAL = 256, WIDTH_LARGE = 288;
+	
 	private ArrayList<Pin> inputs = new ArrayList<>(), outputs = new ArrayList<>();
 
-	private float x, y;
+	private float x, y, width;
 	private Color color;
 	private String name;
 
 	private HvlAction1<Node> onDialogueClick;
 
-	public Node(String nameArg, float xArg, float yArg, Color colorArg){
+	public Node(String nameArg, float xArg, float yArg, float widthArg, Color colorArg){
 		name = nameArg;
 		x = xArg;
 		y = yArg;
+		width = widthArg;
 		color = colorArg;
 		nodes.add(this);
 	}
@@ -533,6 +536,10 @@ public abstract class Node {
 		y = yArg;
 	}
 
+	public float getWidth(){
+		return width;
+	}
+
 	public Color getColor(){
 		return color;
 	}
@@ -542,10 +549,10 @@ public abstract class Node {
 	public abstract Node getNext();
 
 	public void draw(float delta){
-		hvlDrawQuad(x, y, 256, 32 + (Math.max(inputs.size(), outputs.size()) * 32), color);
+		hvlDrawQuad(x, y, width, 32 + (Math.max(inputs.size(), outputs.size()) * 32), color);
 		float value = Interactor.mouseNode == this ? 0.2f : -0.2f;
 		hvlDrawQuad(x, y, 16, 32, new Color(color.r + value, color.g + value, color.b + value));
-		Main.font.drawWord(name, x + 128 - (Main.font.getLineWidth(name)/20), y + 6, 0.1f, Color.white);
+		Main.font.drawWord(name, x + (width/2) - (Main.font.getLineWidth(name)/20), y + 6, 0.1f, Color.white);
 		for(Pin p : inputs) p.draw(true, delta);
 		for(Pin p : outputs) p.draw(false, delta);
 	}

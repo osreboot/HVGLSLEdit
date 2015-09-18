@@ -12,7 +12,7 @@ public class NodeFloatMultiply extends Node{
 	private PinFloat input1, input2, output;
 
 	public NodeFloatMultiply(float x, float y){
-		super("float multiply", x, y, Node.COLOR_MATH_OPERATOR);
+		super("float multiply", x, y, Node.WIDTH_NORMAL, Node.COLOR_MATH_OPERATOR);
 		input1 = new PinFloat(this, "1");
 		input2 = new PinFloat(this, "2");
 		setInputs(new ArrayList<Pin>(Arrays.asList(input1, input2)));

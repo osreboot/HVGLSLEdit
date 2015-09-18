@@ -12,7 +12,7 @@ public class NodeEnd extends Node{
 	private PinExecute previous;
 	
 	public NodeEnd(float x, float y){
-		super("end", x, y, Node.COLOR_END);
+		super("end", x, y, Node.WIDTH_EXTRASHORT, Node.COLOR_END);
 		previous = new PinExecute(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 	}
