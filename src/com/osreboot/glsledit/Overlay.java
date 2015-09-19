@@ -14,7 +14,7 @@ public class Overlay {
 			WIRE_COLOR = new Color(1f, 0.1f, 0.1f), 
 			WIRE_EXECUTE = new Color(1f, 0.1f, 1f), 
 			WIRE_FLOAT = new Color(1f, 0.5f, 0.1f), 
-			WIRE_TEMPORARY = Color.gray,
+			WIRE_TEMPORARY = new Color(0.2f, 0.2f, 0.2f),
 			WIRE_ORGANIZATION = new Color(1f, 1f, 0);
 	
 	public static final float WIRE_THIN = 1f, WIRE_MEDTHICK = 2f, WIRE_THICK = 3f;
