@@ -5,6 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawLine;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import com.osreboot.glsledit.pin.PinOrganization;
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCursor;
@@ -31,7 +32,7 @@ public class Interactor {
 			}
 
 			if(mousePin != null){
-				hvlDrawLine(mousePin.getX(), mousePin.getY(), (float)HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth()/2), (float)HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight()/2), Overlay.WIRE_TEMPORARY, Overlay.WIRE_THIN);
+				hvlDrawLine(mousePin.getX(), mousePin.getY(), (float)HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth()/2), (float)HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight()/2), Overlay.WIRE_TEMPORARY, Overlay.WIDTH_THIN);
 			}
 
 		}else{
@@ -62,12 +63,14 @@ public class Interactor {
 
 		if(mouseNode == null && mousePin == null){
 			for(Node n : Node.getNodes()){
-				for(Pin p : n.getOutputs()){
-					float x = p.getX() - HvlCamera.getX() + (Display.getWidth()/2);
-					float y = p.getY() - HvlCamera.getY() + (Display.getHeight()/2);
-					if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
-							HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin == null){
-						mousePin = p;
+				for(Pin p : n.getAllPins()){
+					if(p instanceof PinOrganization || n.getOutputs().contains(p)){
+						float x = p.getX() - HvlCamera.getX() + (Display.getWidth()/2);
+						float y = p.getY() - HvlCamera.getY() + (Display.getHeight()/2);
+						if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
+								HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin == null){
+							mousePin = p;
+						}
 					}
 				}
 			}
@@ -88,15 +91,17 @@ public class Interactor {
 		if(mousePin != null){
 			boolean set = false;
 			for(Node n : Node.getNodes()){
-				for(Pin p : n.getInputs()){
-					float x = p.getX() - HvlCamera.getX() + (Display.getWidth()/2);
-					float y = p.getY() - HvlCamera.getY() + (Display.getHeight()/2);
-					if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
-							HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin != p){
-						Pin connection = Pin.findOutputConnection(p);
-						if(connection != null) connection.removeConnection(p);
-						mousePin.setConnection(p);
-						set = true;
+				for(Pin p : n.getAllPins()){
+					if(p instanceof PinOrganization || n.getInputs().contains(p)){
+						float x = p.getX() - HvlCamera.getX() + (Display.getWidth()/2);
+						float y = p.getY() - HvlCamera.getY() + (Display.getHeight()/2);
+						if(HvlCursor.getCursorX() > x - 8 && HvlCursor.getCursorX() < x + 8 && 
+								HvlCursor.getCursorY() > y - 8 && HvlCursor.getCursorY() < y + 8 && mousePin != p){
+							Pin connection = Pin.findOutputConnection(p);
+							if(connection != null && !(mousePin instanceof PinOrganization)) connection.removeConnection(p);
+							mousePin.setConnection(p);
+							set = true;
+						}
 					}
 				}
 			}

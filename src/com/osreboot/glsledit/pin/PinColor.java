@@ -17,7 +17,7 @@ public class PinColor extends Pin{
 
 	@Override
 	public void setConnection(Pin connectionArg){
-		if(connectionArg instanceof PinColor){
+		if(connectionArg instanceof PinColor && connectionArg.getParent() != getParent()){
 			connections.add(connectionArg);
 		}
 	}
@@ -25,7 +25,7 @@ public class PinColor extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_COLOR, Overlay.WIRE_MEDTHICK);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_COLOR, Overlay.WIDTH_MEDTHICK);
 		}
 	}
 

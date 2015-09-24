@@ -16,7 +16,7 @@ public class PinExecute extends Pin{
 	@Override
 	public void setConnection(Pin connectionArg){
 		if(connectionArg == null) connection = null;
-		if(connectionArg instanceof PinExecute){
+		if(connectionArg instanceof PinExecute && connectionArg.getParent() != getParent()){
 			connection = connectionArg;
 		}
 	}
@@ -27,7 +27,7 @@ public class PinExecute extends Pin{
 
 	@Override
 	public void drawConnections(float deltaArg){
-		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()), Overlay.WIRE_EXECUTE, Overlay.WIRE_THICK);
+		if(connection != null) Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(connection.getX(), connection.getY()), Overlay.WIRE_EXECUTE, Overlay.WIDTH_THICK);
 	}
 
 	@Override

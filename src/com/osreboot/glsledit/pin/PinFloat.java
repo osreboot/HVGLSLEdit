@@ -17,7 +17,7 @@ public class PinFloat extends Pin{
 
 	@Override
 	public void setConnection(Pin connectionArg){
-		if(connectionArg instanceof PinFloat){
+		if(connectionArg instanceof PinFloat && connectionArg.getParent() != getParent()){
 			connections.add(connectionArg);
 		}
 	}
@@ -25,7 +25,7 @@ public class PinFloat extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_FLOAT, Overlay.WIRE_MEDTHICK);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_FLOAT, Overlay.WIDTH_MEDTHICK);
 		}
 	}
 

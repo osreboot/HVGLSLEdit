@@ -46,6 +46,7 @@ import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
 import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
 import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
 import com.osreboot.glsledit.node.organization.NodeOrganizationConnector;
+import com.osreboot.glsledit.node.organization.NodeOrganizationLabel;
 import com.osreboot.glsledit.node.variable.NodeVariableColorDefine;
 import com.osreboot.glsledit.node.variable.NodeVariableColorGet;
 import com.osreboot.glsledit.node.variable.NodeVariableColorSet;
@@ -428,6 +429,22 @@ public abstract class Node {
 				new NodeOrganizationConnector(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		registry.put("org lbl", new HvlAction0(){
+			@Override
+			public void run(){
+				try{
+					NodeOrganizationLabel node = new NodeOrganizationLabel(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					node.setOnDialogueClick(new HvlAction1<Node>(){
+						@Override
+						public void run(Node node){
+							try{
+								((NodeOrganizationLabel)node).setLabel(getUserString());
+							}catch(Exception e){}
+						}
+					});
+				}catch(Exception e){}
+			}
+		});
 		registry.put("end frag", new HvlAction0(){
 			@Override
 			public void run(){
@@ -549,6 +566,10 @@ public abstract class Node {
 
 	public void setY(float yArg){
 		y = yArg;
+	}
+
+	public void setWidth(float width){
+		this.width = width;
 	}
 
 	public float getWidth(){

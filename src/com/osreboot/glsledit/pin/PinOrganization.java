@@ -25,12 +25,13 @@ public class PinOrganization extends Pin{
 	@Override
 	public void drawConnections(float deltaArg){
 		for(Pin p : connections){
-			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_ORGANIZATION, Overlay.WIRE_THICK);
+			Overlay.addWireConnection(new HvlCoord(getX(), getY()), new HvlCoord(p.getX(), p.getY()), Overlay.WIRE_ORGANIZATION, Overlay.WIDTH_ORGANIZATION);
 		}
 	}
 
 	@Override
 	public void resetConnections(){
+		while(Pin.findConnection(this) != null) Pin.findConnection(this).removeConnection(this);
 		connections.clear();
 	}
 
