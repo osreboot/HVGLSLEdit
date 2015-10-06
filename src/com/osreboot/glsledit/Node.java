@@ -525,7 +525,7 @@ public abstract class Node {
 		node = null;
 	}
 
-	public static final float WIDTH_MEGASHORT = 64, WIDTH_EXTRASHORT = 128, WIDTH_SHORT = 192, WIDTH_MEDSHORT = 224, WIDTH_NORMAL = 256, WIDTH_LARGE = 288;
+	public static final float WIDTH_ORGCNCTR = 32, WIDTH_MEGASHORT = 64, WIDTH_EXTRASHORT = 128, WIDTH_SHORT = 192, WIDTH_MEDSHORT = 224, WIDTH_NORMAL = 256, WIDTH_LARGE = 288;
 	
 	private ArrayList<Pin> inputs = new ArrayList<>(), outputs = new ArrayList<>();
 

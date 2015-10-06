@@ -13,7 +13,7 @@ public class NodeOrganizationConnector extends Node{
 	private PinOrganization next;
 
 	public NodeOrganizationConnector(float x, float y){
-		super("", x, y, Node.WIDTH_MEGASHORT, Node.COLOR_ORGANIZATION);
+		super("", x, y, Node.WIDTH_ORGCNCTR, Node.COLOR_ORGANIZATION);
 		previous = new PinOrganization(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));
 		next = new PinOrganization(this);
