@@ -120,8 +120,8 @@ public class Main extends HvlTemplateInteg2D{
 		});
 		sideBar.setxAlign(0.5f);
 		sideBar.setyAlign(0.5f);
-		sideBar.setBorderU(16);
-		sideBar.setBorderD(16);
+		sideBar.setBorderU(12);
+		sideBar.setBorderD(12);
 		main.add(sideBar);
 		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("compile").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
@@ -182,6 +182,26 @@ public class Main extends HvlTemplateInteg2D{
 			}
 		}).build();
 		main.getFirstChildOfType(HvlArrangerBox.class).add(removeButton);
+		
+		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("load").setClickedCommand(new HvlAction1<HvlButton>(){
+			@Override
+			public void run(HvlButton button){
+				//Compiler.compile();
+			}
+		}).build());
+		
+		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("save").setClickedCommand(new HvlAction1<HvlButton>(){
+			@Override
+			public void run(HvlButton button){
+				//Compiler.compile();
+			}
+		}).setDrawOverride(new HvlAction2<HvlComponent, Float>(){
+			@Override
+			public void run(HvlComponent a, Float delta){
+				((HvlButton)a).setEnabled(Node.getNodes().size() > 0);
+				a.draw(delta);
+			}
+		}).build());
 		
 		HvlMenu.setCurrent(main);
 		
