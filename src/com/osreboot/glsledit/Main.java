@@ -18,11 +18,11 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
+import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
-import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;
@@ -52,7 +52,7 @@ public class Main extends HvlTemplateInteg2D{
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 		
-		font = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		font = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.DEFAULT, 112, 144);
 		
 		Compiler.initialize();
 		
@@ -77,7 +77,7 @@ public class Main extends HvlTemplateInteg2D{
 		labeledButtonDefault.setAlign(0.5f);
 		HvlComponentDefault.setDefault(labeledButtonDefault);
 		
-		HvlSlider sliderDefault = new HvlSlider(16, 256, SliderDirection.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
+		HvlSlider sliderDefault = new HvlSlider(16, 256, Direction.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
 			@Override
 			public void draw(float delta, float x, float y, float width, float height){//slider handle
 				hvlDrawQuad(x, y, width, height, Color.darkGray);
@@ -123,21 +123,21 @@ public class Main extends HvlTemplateInteg2D{
 		sideBar.setBorderU(12);
 		sideBar.setBorderD(12);
 		main.add(sideBar);
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("compile").setClickedCommand(new HvlAction1<HvlButton>(){
+		main.getFirstOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("compile").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				Compiler.compile();
 			}
 		}).build());
 		
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("add node").setClickedCommand(new HvlAction1<HvlButton>(){
+		main.getFirstOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("add node").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				if(nodeList.getSelectedIndex() != -1) (new ArrayList<HvlAction0>(Node.getRegistry().values())).get(nodeList.getSelectedIndex()).run();
 			}
 		}).build());
 		
-		nodeList = new HvlListBox(96, 256, new HvlSlider(16, 256, SliderDirection.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
+		nodeList = new HvlListBox(96, 256, new HvlSlider(16, 256, Direction.VERTICAL, 16, 64, 0, new HvlComponentDrawable(){
 			@Override
 			public void draw(float delta, float x, float y, float width, float height){//slider handle
 				hvlDrawQuad(x, y, width, height, Color.darkGray);
@@ -160,7 +160,7 @@ public class Main extends HvlTemplateInteg2D{
 		}, 16, 8);
 		for(String s : Node.getRegistry().keySet()) nodeList.addItem(s);
 		nodeList.setTextScale(0.1f);
-		main.getFirstChildOfType(HvlArrangerBox.class).add(nodeList);
+		main.getFirstOfType(HvlArrangerBox.class).add(nodeList);
 		
 		final HvlComponentDrawable removeOnDrawable = new HvlComponentDrawable(){
 			@Override
@@ -181,16 +181,16 @@ public class Main extends HvlTemplateInteg2D{
 				component.update(delta);
 			}
 		}).build();
-		main.getFirstChildOfType(HvlArrangerBox.class).add(removeButton);
+		main.getFirstOfType(HvlArrangerBox.class).add(removeButton);
 		
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("load").setClickedCommand(new HvlAction1<HvlButton>(){
+		main.getFirstOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("load").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				//Compiler.compile();
 			}
 		}).build());
 		
-		main.getFirstChildOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("save").setClickedCommand(new HvlAction1<HvlButton>(){
+		main.getFirstOfType(HvlArrangerBox.class).add(new HvlLabeledButton.Builder().setText("save").setClickedCommand(new HvlAction1<HvlButton>(){
 			@Override
 			public void run(HvlButton button){
 				//Compiler.compile();
