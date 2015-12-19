@@ -1,8 +1,9 @@
 package com.osreboot.glsledit;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import javax.swing.JColorChooser;
@@ -93,12 +94,26 @@ public abstract class Node {
 	public static final String DEFAULT_COLOR = "vec4(0, 0, 0, 1)";
 
 	private static LinkedHashMap<String, HvlAction0> registry = new LinkedHashMap<>();
+	private static LinkedHashMap<String, ArrayList<String>> registrySubList = new LinkedHashMap<>();;
 
 	public static LinkedHashMap<String, HvlAction0> getRegistry(){
 		return registry;
 	}
+	
+	public static HashMap<String, ArrayList<String>> getSubRegistry(){
+		return registrySubList;
+	}
 
 	public static void initialize(){
+		ArrayList<String> categoryManagement = new ArrayList<>();
+		ArrayList<String> categoryFloat = new ArrayList<>();
+		ArrayList<String> categoryColor = new ArrayList<>();
+		ArrayList<String> categoryBoolean = new ArrayList<>();
+		ArrayList<String> categoryCasting = new ArrayList<>();
+		ArrayList<String> categoryFragment = new ArrayList<>();
+		ArrayList<String> categoryOrganization = new ArrayList<>();
+		
+		categoryFloat.add("float");
 		registry.put("float", new HvlAction0(){
 			@Override
 			public void run(){
@@ -115,6 +130,7 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryColor.add("color");
 		registry.put("color", new HvlAction0(){
 			@Override
 			public void run(){
@@ -131,18 +147,21 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryManagement.add("if");
 		registry.put("if", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeIf(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryManagement.add("else");
 		registry.put("else", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeIfElse(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryManagement.add("for");
 		registry.put("for", new HvlAction0(){
 			@Override
 			public void run(){
@@ -159,114 +178,133 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryManagement.add("close");
 		registry.put("close", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeClose(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryBoolean.add("b and");
 		registry.put("b and", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBooleanAnd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryBoolean.add("b or");
 		registry.put("b or", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBooleanOr(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryBoolean.add("b not");
 		registry.put("b not", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBooleanNot(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryBoolean.add("b f grtr");
 		registry.put("b f grtr", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBooleanFloatGreater(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryBoolean.add("b f less");
 		registry.put("b f less", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeBooleanFloatLess(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f add");
 		registry.put("f add", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatAdd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f sub");
 		registry.put("f sub", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatSubtract(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f mlt");
 		registry.put("f mlt", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatMultiply(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f div");
 		registry.put("f div", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f mod");
 		registry.put("f mod", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatMod(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f pow");
 		registry.put("f pow", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatPower(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f sqrt");
 		registry.put("f sqrt", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatSqrt(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f lerp");
 		registry.put("f lerp", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatLerp(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f abs");
 		registry.put("f abs", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatAbsolute(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f min");
 		registry.put("f min", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatMin(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f max");
 		registry.put("f max", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatMax(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f dist");
 		registry.put("f dist", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatDistance(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFloat.add("f var def");
 		registry.put("f var def", new HvlAction0(){
 			@Override
 			public void run(){
@@ -283,6 +321,7 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryFloat.add("f var get");
 		registry.put("f var get", new HvlAction0(){
 			@Override
 			public void run(){
@@ -299,6 +338,7 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryFloat.add("f var set");
 		registry.put("f var set", new HvlAction0(){
 			@Override
 			public void run(){
@@ -315,30 +355,35 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryColor.add("c add");
 		registry.put("c add", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorAdd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryColor.add("c sub");
 		registry.put("c sub", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorSubtract(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryColor.add("c mlt");
 		registry.put("c mlt", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorMultiply(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryColor.add("c div");
 		registry.put("c div", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorDivide(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryColor.add("c var def");
 		registry.put("c var def", new HvlAction0(){
 			@Override
 			public void run(){
@@ -355,6 +400,7 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryColor.add("c var get");
 		registry.put("c var get", new HvlAction0(){
 			@Override
 			public void run(){
@@ -371,6 +417,7 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryColor.add("c var set");
 		registry.put("c var set", new HvlAction0(){
 			@Override
 			public void run(){
@@ -387,48 +434,56 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryFragment.add("c sample");
 		registry.put("c sample", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorSample(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryCasting.add("f to c");
 		registry.put("f to c", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryCasting.add("sf to c");
 		registry.put("sf to c", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeSingleFloatToColor(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryCasting.add("c to f");
 		registry.put("c to f", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFragment.add("frag loc get");
 		registry.put("frag loc get", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFragLocationGet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryFragment.add("frag set");
 		registry.put("frag set", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryOrganization.add("org ctr");
 		registry.put("org ctr", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeOrganizationConnector(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryOrganization.add("org lbl");
 		registry.put("org lbl", new HvlAction0(){
 			@Override
 			public void run(){
@@ -445,18 +500,28 @@ public abstract class Node {
 				}catch(Exception e){}
 			}
 		});
+		categoryManagement.add("end frag");
 		registry.put("end frag", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeEndFragSet(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		categoryManagement.add("end");
 		registry.put("end", new HvlAction0(){
 			@Override
 			public void run(){
 				new NodeEnd(HvlCamera.getX(), HvlCamera.getY());
 			}
 		});
+		
+		registrySubList.put("code", categoryManagement);
+		registrySubList.put("float", categoryFloat);
+		registrySubList.put("color", categoryColor);
+		registrySubList.put("boolean", categoryBoolean);
+		registrySubList.put("cast", categoryCasting);
+		registrySubList.put("frag", categoryFragment);
+		registrySubList.put("org", categoryOrganization);
 	}
 
 	public static float getUserFloat() throws InputInvalidException{
