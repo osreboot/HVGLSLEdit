@@ -603,7 +603,6 @@ public abstract class Node {
 		width = widthArg;
 		color = colorArg;
 		id = getFirstUnusedId();
-		System.out.println(id);
 		nodes.add(this);
 	}
 
