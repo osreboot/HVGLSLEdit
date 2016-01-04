@@ -10,6 +10,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
@@ -23,7 +24,11 @@ public class Compiler {
 	private static boolean failed = false;
 
 	public static void initialize(){
-		frame = new HvlRenderFrame(512, 512);
+		try {
+			frame = new HvlRenderFrame(512, 512);
+		} catch (FBOUnsupportedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void compile(){
