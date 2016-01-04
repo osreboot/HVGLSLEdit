@@ -574,6 +574,14 @@ public abstract class Node {
 		}
 	}
 	
+	public static Node getNodeWithId(int id) {
+		for (Node n : nodes) {
+			if (n.getId() == id) return n;
+		}
+		
+		return null;
+	}
+	
 	public static void removeNode(Node node){
 		for(Pin p : node.getAllPins()){
 			p.resetConnections();
@@ -685,9 +693,12 @@ public abstract class Node {
 	public void setOnDialogueClick(HvlAction1<Node> onDialogueClickArg) {
 		onDialogueClick = onDialogueClickArg;
 	}
-
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 }

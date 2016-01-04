@@ -2,6 +2,8 @@ package com.osreboot.glsledit;
 
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
+import java.io.File;
+
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -219,6 +221,7 @@ public class Main extends HvlTemplateInteg2D{
 			@Override
 			public void run(HvlButton button){
 				//Compiler.compile();
+				Loader.loadProgram(new File("res/Saved.txt"));
 			}
 		}).build());
 
