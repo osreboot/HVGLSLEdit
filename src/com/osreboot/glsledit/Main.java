@@ -1,15 +1,12 @@
 package com.osreboot.glsledit;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-
-import java.util.ArrayList;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.node.NodeBasicStart;
 import com.osreboot.ridhvl.HvlFontUtil;
-import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.action.HvlAction3;
@@ -19,11 +16,11 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
+import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;

@@ -1,6 +1,6 @@
 package com.osreboot.glsledit;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,49 +11,12 @@ import javax.swing.JOptionPane;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.glsledit.node.NodeArbitraryColor;
-import com.osreboot.glsledit.node.NodeArbitraryFloat;
-import com.osreboot.glsledit.node.NodeClose;
-import com.osreboot.glsledit.node.NodeColorSample;
-import com.osreboot.glsledit.node.NodeColorToFloat;
-import com.osreboot.glsledit.node.NodeEnd;
-import com.osreboot.glsledit.node.NodeEndFragSet;
-import com.osreboot.glsledit.node.NodeFloatToColor;
-import com.osreboot.glsledit.node.NodeFor;
-import com.osreboot.glsledit.node.NodeFragLocationGet;
-import com.osreboot.glsledit.node.NodeFragSet;
-import com.osreboot.glsledit.node.NodeIf;
-import com.osreboot.glsledit.node.NodeIfElse;
-import com.osreboot.glsledit.node.NodeSingleFloatToColor;
-import com.osreboot.glsledit.node.arithmetic.NodeColorAdd;
-import com.osreboot.glsledit.node.arithmetic.NodeColorDivide;
-import com.osreboot.glsledit.node.arithmetic.NodeColorMultiply;
-import com.osreboot.glsledit.node.arithmetic.NodeColorSubtract;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatDistance;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatLerp;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMax;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMin;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMod;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMultiply;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatPower;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatSqrt;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatSubtract;
-import com.osreboot.glsledit.node.booleans.NodeBooleanAnd;
-import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
-import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
-import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
-import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
+import com.osreboot.glsledit.node.*;
+import com.osreboot.glsledit.node.arithmetic.*;
+import com.osreboot.glsledit.node.booleans.*;
 import com.osreboot.glsledit.node.organization.NodeOrganizationConnector;
 import com.osreboot.glsledit.node.organization.NodeOrganizationLabel;
-import com.osreboot.glsledit.node.variable.NodeVariableColorDefine;
-import com.osreboot.glsledit.node.variable.NodeVariableColorGet;
-import com.osreboot.glsledit.node.variable.NodeVariableColorSet;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatDefine;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatGet;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatSet;
+import com.osreboot.glsledit.node.variable.*;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.painter.HvlCamera;
@@ -579,6 +542,38 @@ public abstract class Node {
 		return nodes;
 	}
 
+	public static int[] getUsedIds() {
+		int[] tr = new int[nodes.size()];
+		
+		for (int i = 0; i < nodes.size(); i++) {
+			tr[i] = nodes.get(i).getId();
+		}
+		
+		return tr;
+	}
+	
+	public static int getFirstUnusedId() {
+		int[] used = getUsedIds();
+		
+		int tr = 0;
+		
+		while (true) {
+			boolean found = true;
+			
+			for (int i = 0; i < used.length; i++) {
+				if (tr == used[i]) {
+					found = false;
+					break;
+				}
+			}
+			
+			if (found)
+				return tr;
+			
+			tr++;
+		}
+	}
+	
 	public static void removeNode(Node node){
 		for(Pin p : node.getAllPins()){
 			p.resetConnections();
@@ -597,6 +592,7 @@ public abstract class Node {
 	private float x, y, width;
 	private Color color;
 	private String name;
+	private int id;
 
 	private HvlAction1<Node> onDialogueClick;
 
@@ -606,6 +602,8 @@ public abstract class Node {
 		y = yArg;
 		width = widthArg;
 		color = colorArg;
+		id = getFirstUnusedId();
+		System.out.println(id);
 		nodes.add(this);
 	}
 
@@ -689,4 +687,8 @@ public abstract class Node {
 		onDialogueClick = onDialogueClickArg;
 	}
 
+	
+	public int getId() {
+		return id;
+	}
 }
