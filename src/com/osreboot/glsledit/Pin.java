@@ -2,6 +2,8 @@ package com.osreboot.glsledit;
 
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
+import java.util.List;
+
 import org.newdawn.slick.Color;
 
 public abstract class Pin {
@@ -71,6 +73,7 @@ public abstract class Pin {
 	public abstract void removeConnection(Pin p);
 	public abstract boolean hasConnection(Pin p);
 	public abstract void drawConnections(float delta);
+	public abstract List<Pin> getConnections();
 
 	public String getName(){
 		return name;

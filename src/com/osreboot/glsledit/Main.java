@@ -226,6 +226,7 @@ public class Main extends HvlTemplateInteg2D{
 			@Override
 			public void run(HvlButton button){
 				//Compiler.compile();
+				Loader.saveProgram("res/Saved.txt");
 			}
 		}).setDrawOverride(new HvlAction2<HvlComponent, Float>(){
 			@Override

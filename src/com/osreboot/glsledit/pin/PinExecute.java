@@ -1,5 +1,9 @@
 package com.osreboot.glsledit.pin;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.osreboot.glsledit.Node;
 import com.osreboot.glsledit.Overlay;
 import com.osreboot.glsledit.Pin;
@@ -43,6 +47,14 @@ public class PinExecute extends Pin{
 	@Override
 	public void removeConnection(Pin pArg){
 		if(connection == pArg) connection = null;
+	}
+
+	@Override
+	public List<Pin> getConnections() {
+		ArrayList<Pin> tr = new ArrayList<>();
+		if (connection != null)
+			tr.add(connection);
+		return Collections.unmodifiableList(tr);
 	}
 
 }
