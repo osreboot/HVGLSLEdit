@@ -184,14 +184,16 @@ public class Loader {
 			args[1] = nodeY;
 			
 			for (int i = 0; i < argVars.length; i++) {
-				args[i + 2] = getValue(cl.getField(argVars[i]), vars.get(argVars[i]));
+				args[i + 2] = getValue(cl.getDeclaredField(argVars[i]), vars.get(argVars[i]));
 			}
 			
 			Node toAdd = (Node) constr.newInstance(args);
 			toAdd.setId(nodeId);
 			
 			for (Map.Entry<String, String> varInfo : vars.entrySet()) {
-				cl.getField(varInfo.getKey()).set(toAdd, getValue(cl.getField(varInfo.getKey()), varInfo.getValue()));
+				Field f = cl.getDeclaredField(varInfo.getKey());
+				f.setAccessible(true);
+				f.set(toAdd, getValue(f, varInfo.getValue()));
 			}
 		} catch (ClassNotFoundException | SecurityException | NoSuchFieldException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();

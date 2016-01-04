@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.newdawn.slick.Color;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.NodeConstructorArg;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinColor;
 
@@ -15,6 +16,7 @@ public class NodeArbitraryColor extends Node{
 
 	private Color value;
 	
+	@NodeConstructorArg("value")
 	public NodeArbitraryColor(float x, float y, Color valueArg){
 		super(round(valueArg.r) + "r " + round(valueArg.g) + "g " + round(valueArg.b) + "b " + round(valueArg.a) + "a ", x, y, Node.WIDTH_LARGE, Node.COLOR_ARBITRARY);
 		value = valueArg;

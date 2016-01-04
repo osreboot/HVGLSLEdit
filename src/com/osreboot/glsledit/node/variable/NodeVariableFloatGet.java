@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.NodeConstructorArg;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinFloat;
 
@@ -11,7 +12,8 @@ public class NodeVariableFloatGet extends Node{
 
 	private String path;
 	private PinFloat output;
-	
+
+	@NodeConstructorArg("path")
 	public NodeVariableFloatGet(float x, float y, String pathArg){
 		super("get " + pathArg, x, y, Node.WIDTH_SHORT, Node.COLOR_VARIABLE);
 		path = pathArg;

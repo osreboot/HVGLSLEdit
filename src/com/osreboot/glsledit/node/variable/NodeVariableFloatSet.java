@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.NodeConstructorArg;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
 import com.osreboot.glsledit.pin.PinFloat;
@@ -13,7 +14,8 @@ public class NodeVariableFloatSet extends Node{
 	private PinExecute previous, next;
 	private String path;
 	private PinFloat input;
-	
+
+	@NodeConstructorArg("path")
 	public NodeVariableFloatSet(float x, float y, String pathArg){
 		super("set " + pathArg, x, y, Node.WIDTH_NORMAL, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);

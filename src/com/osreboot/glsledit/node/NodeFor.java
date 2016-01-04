@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.NodeConstructorArg;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinExecute;
 import com.osreboot.glsledit.pin.PinFloat;
@@ -14,6 +15,7 @@ public class NodeFor extends Node{
 	private String var;
 	private PinFloat count;
 	
+	@NodeConstructorArg("var")
 	public NodeFor(float x, float y, String varArg){
 		super("for " + varArg, x, y, Node.WIDTH_SHORT, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);

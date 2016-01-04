@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.osreboot.glsledit.Node;
+import com.osreboot.glsledit.NodeConstructorArg;
 import com.osreboot.glsledit.Pin;
 import com.osreboot.glsledit.pin.PinColor;
 import com.osreboot.glsledit.pin.PinExecute;
@@ -14,6 +15,7 @@ public class NodeVariableColorDefine extends Node{
 	private String path;
 	private PinColor input;
 	
+	@NodeConstructorArg("path")
 	public NodeVariableColorDefine(float x, float y, String pathArg){
 		super("def " + pathArg, x, y, Node.WIDTH_NORMAL, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);
