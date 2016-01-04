@@ -14,7 +14,7 @@ public class NodeFor extends Node{
 	private String var;
 	private PinFloat count;
 	
-	public NodeFor(String varArg, float x, float y){
+	public NodeFor(float x, float y, String varArg){
 		super("for " + varArg, x, y, Node.WIDTH_SHORT, Node.COLOR_BLOCK);
 		previous = new PinExecute(this);
 		var = varArg;

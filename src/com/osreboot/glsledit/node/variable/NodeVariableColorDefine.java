@@ -14,7 +14,7 @@ public class NodeVariableColorDefine extends Node{
 	private String path;
 	private PinColor input;
 	
-	public NodeVariableColorDefine(String pathArg, float x, float y){
+	public NodeVariableColorDefine(float x, float y, String pathArg){
 		super("def " + pathArg, x, y, Node.WIDTH_NORMAL, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);
 		path = pathArg;

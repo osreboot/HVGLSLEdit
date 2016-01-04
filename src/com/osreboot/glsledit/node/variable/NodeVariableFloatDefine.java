@@ -14,7 +14,7 @@ public class NodeVariableFloatDefine extends Node{
 	private String path;
 	private PinFloat input;
 	
-	public NodeVariableFloatDefine(String pathArg, float x, float y){
+	public NodeVariableFloatDefine(float x, float y, String pathArg){
 		super("def " + pathArg, x, y, Node.WIDTH_NORMAL, Node.COLOR_VARIABLE);
 		previous = new PinExecute(this);
 		path = pathArg;

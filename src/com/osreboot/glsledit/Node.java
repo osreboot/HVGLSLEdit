@@ -81,7 +81,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeArbitraryFloat node = new NodeArbitraryFloat(getUserFloat(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryFloat node = new NodeArbitraryFloat(HvlCamera.getX(), HvlCamera.getY(), getUserFloat());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -98,7 +98,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeArbitraryColor node = new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryColor node = new NodeArbitraryColor(HvlCamera.getX(), HvlCamera.getY(), getUserColor());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -129,7 +129,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeFor node = new NodeFor(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeFor node = new NodeFor(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -272,7 +272,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatDefine node = new NodeVariableFloatDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatDefine node = new NodeVariableFloatDefine(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -289,7 +289,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatGet node = new NodeVariableFloatGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatGet node = new NodeVariableFloatGet(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -306,7 +306,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatSet node = new NodeVariableFloatSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatSet node = new NodeVariableFloatSet(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -351,7 +351,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorDefine node = new NodeVariableColorDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorDefine node = new NodeVariableColorDefine(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -368,7 +368,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorGet node = new NodeVariableColorGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorGet node = new NodeVariableColorGet(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -385,7 +385,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorSet node = new NodeVariableColorSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorSet node = new NodeVariableColorSet(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -451,7 +451,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeOrganizationLabel node = new NodeOrganizationLabel(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeOrganizationLabel node = new NodeOrganizationLabel(HvlCamera.getX(), HvlCamera.getY(), getUserString());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){

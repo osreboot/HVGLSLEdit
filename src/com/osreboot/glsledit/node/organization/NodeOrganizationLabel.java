@@ -17,7 +17,7 @@ public class NodeOrganizationLabel extends Node{
 		return (Main.font.getLineWidth(inputArg)/10) + 64;
 	}
 	
-	public NodeOrganizationLabel(String labelArg, float x, float y){
+	public NodeOrganizationLabel(float x, float y, String labelArg){
 		super(labelArg, x, y, getAdjustedWidth(labelArg), Node.COLOR_ORGANIZATION);
 		previous = new PinOrganization(this);
 		setInputs(new ArrayList<Pin>(Arrays.asList(previous)));

@@ -12,7 +12,7 @@ public class NodeVariableColorGet extends Node{
 	private String path;
 	private PinColor output;
 	
-	public NodeVariableColorGet(String pathArg, float x, float y){
+	public NodeVariableColorGet(float x, float y, String pathArg){
 		super("get " + pathArg, x, y, Node.WIDTH_SHORT, Node.COLOR_VARIABLE);
 		path = pathArg;
 		output = new PinColor(this, "out"){
