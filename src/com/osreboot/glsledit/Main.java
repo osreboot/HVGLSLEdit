@@ -2,8 +2,6 @@ package com.osreboot.glsledit;
 
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
-import java.util.ArrayList;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -17,16 +15,11 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
-import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
+import com.osreboot.ridhvl.menu.component.*;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
-import com.osreboot.ridhvl.menu.component.HvlButton;
-import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
-import com.osreboot.ridhvl.menu.component.HvlListBox;
-import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.painter.HvlCamera;
-import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
@@ -47,6 +40,8 @@ public class Main extends HvlTemplateInteg2D{
 
 	private static Node starterNode;
 	private static HvlListBox nodeCategoryList, nodeSubList;
+
+	public static HvlCamera camera;
 
 	@Override
 	public void initialize(){
@@ -240,26 +235,29 @@ public class Main extends HvlTemplateInteg2D{
 
 		HvlMenu.setCurrent(main);
 
-		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
-
 		starterNode = new NodeBasicStart(0, 0);
-		HvlCamera.setPosition(starterNode.getX(), starterNode.getY());
+		camera = new HvlCamera(starterNode.getX(), starterNode.getY(), 0f, 1f, HvlCamera.ALIGNMENT_CENTER);
 	}
 
 	@Override
-	public void update(float delta){
-		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
+	public void update(final float delta){
+		camera.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				for(Node n : Node.getNodes()) n.draw(delta);
+				Overlay.drawWires(delta);
+			}
+		});
 
-		for(Node n : Node.getNodes()) n.draw(delta);
-
-		Overlay.drawWires(delta);
-
-		HvlCamera.undoTransform();
 		Compiler.draw(delta);
 		HvlMenu.updateMenus(delta);
-		HvlCamera.doTransform();
 
-		Interactor.update(delta);
+		camera.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				Interactor.update(delta);
+			}
+		});
 	}
 
 	public static Node getStarterNode(){
@@ -269,6 +267,5 @@ public class Main extends HvlTemplateInteg2D{
 	public static HvlLabeledButton getRemoveButton(){
 		return removeButton;
 	}
-
 
 }

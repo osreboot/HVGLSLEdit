@@ -9,7 +9,9 @@ import java.io.FileWriter;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
@@ -23,7 +25,11 @@ public class Compiler {
 	private static boolean failed = false;
 
 	public static void initialize(){
-		frame = new HvlRenderFrame(512, 512);
+		try{
+			frame = new HvlRenderFrame(512, 512);
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 
 	public static void compile(){
@@ -53,15 +59,21 @@ public class Compiler {
 	public static void draw(float delta){
 		frame.setX(Display.getWidth() - 512);
 		frame.setY((Display.getHeight()/2) - 256);
-		HvlRenderFrame.setCurrentRenderFrame(frame);
-		hvlRotate(Display.getWidth() - 256, (Display.getHeight()/2), HvlTemplate.getNewestInstance().getTimer().getTotalTime()*50 % 360);
-		hvlDrawQuad(Display.getWidth() - 512 + 128, (Display.getHeight()/2) - 128, 256, 256, HvlTemplateInteg2D.getTexture(0));
-		hvlResetRotation();
-		HvlRenderFrame.setCurrentRenderFrame(null);
+		frame.doCapture(new HvlAction0(){
+			@Override
+			public void run(){
+				hvlRotate(Display.getWidth() - 256, (Display.getHeight()/2), HvlTemplate.getNewestInstance().getTimer().getTotalTime()*50 % 360);
+				hvlDrawQuad(Display.getWidth() - 512 + 128, (Display.getHeight()/2) - 128, 256, 256, HvlTemplateInteg2D.getTexture(0));
+				hvlResetRotation();
+			}
+		});
 		if(shader != null && !failed){
-			HvlShader.setCurrentShader(shader);
-			hvlDrawQuad(Display.getWidth() - 512, (Display.getHeight()/2) - 256, 512, 512, frame);
-			HvlShader.setCurrentShader(null);
+			shader.doShade(new HvlAction0(){
+				@Override
+				public void run(){
+					hvlDrawQuad(Display.getWidth() - 512, (Display.getHeight()/2) - 256, 512, 512, frame);
+				}
+			});
 		}else{
 			Main.font.drawWord("shader error", Display.getWidth() - 256 - (Main.font.getLineWidth("shader error")/8), (Display.getHeight()/2) - 14, 0.25f, Color.red);
 		}

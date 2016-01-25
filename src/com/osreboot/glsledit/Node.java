@@ -11,52 +11,14 @@ import javax.swing.JOptionPane;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.glsledit.node.NodeArbitraryColor;
-import com.osreboot.glsledit.node.NodeArbitraryFloat;
-import com.osreboot.glsledit.node.NodeClose;
-import com.osreboot.glsledit.node.NodeColorSample;
-import com.osreboot.glsledit.node.NodeColorToFloat;
-import com.osreboot.glsledit.node.NodeEnd;
-import com.osreboot.glsledit.node.NodeEndFragSet;
-import com.osreboot.glsledit.node.NodeFloatToColor;
-import com.osreboot.glsledit.node.NodeFor;
-import com.osreboot.glsledit.node.NodeFragLocationGet;
-import com.osreboot.glsledit.node.NodeFragSet;
-import com.osreboot.glsledit.node.NodeIf;
-import com.osreboot.glsledit.node.NodeIfElse;
-import com.osreboot.glsledit.node.NodeSingleFloatToColor;
-import com.osreboot.glsledit.node.arithmetic.NodeColorAdd;
-import com.osreboot.glsledit.node.arithmetic.NodeColorDivide;
-import com.osreboot.glsledit.node.arithmetic.NodeColorMultiply;
-import com.osreboot.glsledit.node.arithmetic.NodeColorSubtract;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatAbsolute;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatAdd;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatDistance;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatDivide;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatLerp;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMax;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMin;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMod;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatMultiply;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatPower;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatSqrt;
-import com.osreboot.glsledit.node.arithmetic.NodeFloatSubtract;
-import com.osreboot.glsledit.node.booleans.NodeBooleanAnd;
-import com.osreboot.glsledit.node.booleans.NodeBooleanFloatGreater;
-import com.osreboot.glsledit.node.booleans.NodeBooleanFloatLess;
-import com.osreboot.glsledit.node.booleans.NodeBooleanNot;
-import com.osreboot.glsledit.node.booleans.NodeBooleanOr;
+import com.osreboot.glsledit.node.*;
+import com.osreboot.glsledit.node.arithmetic.*;
+import com.osreboot.glsledit.node.booleans.*;
 import com.osreboot.glsledit.node.organization.NodeOrganizationConnector;
 import com.osreboot.glsledit.node.organization.NodeOrganizationLabel;
-import com.osreboot.glsledit.node.variable.NodeVariableColorDefine;
-import com.osreboot.glsledit.node.variable.NodeVariableColorGet;
-import com.osreboot.glsledit.node.variable.NodeVariableColorSet;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatDefine;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatGet;
-import com.osreboot.glsledit.node.variable.NodeVariableFloatSet;
+import com.osreboot.glsledit.node.variable.*;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
-import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class Node {
 
@@ -118,7 +80,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeArbitraryFloat node = new NodeArbitraryFloat(getUserFloat(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryFloat node = new NodeArbitraryFloat(getUserFloat(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -135,7 +97,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeArbitraryColor node = new NodeArbitraryColor(getUserColor(), HvlCamera.getX(), HvlCamera.getY());
+					NodeArbitraryColor node = new NodeArbitraryColor(getUserColor(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -151,14 +113,14 @@ public abstract class Node {
 		registry.put("if", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeIf(HvlCamera.getX(), HvlCamera.getY());
+				new NodeIf(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryManagement.add("else");
 		registry.put("else", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeIfElse(HvlCamera.getX(), HvlCamera.getY());
+				new NodeIfElse(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryManagement.add("for");
@@ -166,7 +128,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeFor node = new NodeFor(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeFor node = new NodeFor(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -182,126 +144,126 @@ public abstract class Node {
 		registry.put("close", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeClose(HvlCamera.getX(), HvlCamera.getY());
+				new NodeClose(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryBoolean.add("b and");
 		registry.put("b and", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeBooleanAnd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeBooleanAnd(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryBoolean.add("b or");
 		registry.put("b or", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeBooleanOr(HvlCamera.getX(), HvlCamera.getY());
+				new NodeBooleanOr(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryBoolean.add("b not");
 		registry.put("b not", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeBooleanNot(HvlCamera.getX(), HvlCamera.getY());
+				new NodeBooleanNot(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryBoolean.add("b f grtr");
 		registry.put("b f grtr", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeBooleanFloatGreater(HvlCamera.getX(), HvlCamera.getY());
+				new NodeBooleanFloatGreater(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryBoolean.add("b f less");
 		registry.put("b f less", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeBooleanFloatLess(HvlCamera.getX(), HvlCamera.getY());
+				new NodeBooleanFloatLess(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f add");
 		registry.put("f add", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatAdd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatAdd(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f sub");
 		registry.put("f sub", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatSubtract(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatSubtract(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f mlt");
 		registry.put("f mlt", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatMultiply(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatMultiply(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f div");
 		registry.put("f div", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatDivide(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatDivide(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f mod");
 		registry.put("f mod", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatMod(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatMod(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f pow");
 		registry.put("f pow", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatPower(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatPower(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f sqrt");
 		registry.put("f sqrt", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatSqrt(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatSqrt(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f lerp");
 		registry.put("f lerp", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatLerp(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatLerp(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f abs");
 		registry.put("f abs", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatAbsolute(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatAbsolute(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f min");
 		registry.put("f min", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatMin(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatMin(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f max");
 		registry.put("f max", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatMax(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatMax(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f dist");
 		registry.put("f dist", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatDistance(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatDistance(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFloat.add("f var def");
@@ -309,7 +271,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatDefine node = new NodeVariableFloatDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatDefine node = new NodeVariableFloatDefine(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -326,7 +288,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatGet node = new NodeVariableFloatGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatGet node = new NodeVariableFloatGet(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -343,7 +305,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableFloatSet node = new NodeVariableFloatSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableFloatSet node = new NodeVariableFloatSet(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -359,28 +321,28 @@ public abstract class Node {
 		registry.put("c add", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorAdd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorAdd(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryColor.add("c sub");
 		registry.put("c sub", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorSubtract(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorSubtract(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryColor.add("c mlt");
 		registry.put("c mlt", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorMultiply(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorMultiply(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryColor.add("c div");
 		registry.put("c div", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorDivide(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorDivide(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryColor.add("c var def");
@@ -388,7 +350,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorDefine node = new NodeVariableColorDefine(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorDefine node = new NodeVariableColorDefine(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -405,7 +367,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorGet node = new NodeVariableColorGet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorGet node = new NodeVariableColorGet(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -422,7 +384,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeVariableColorSet node = new NodeVariableColorSet(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeVariableColorSet node = new NodeVariableColorSet(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -438,49 +400,49 @@ public abstract class Node {
 		registry.put("c sample", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorSample(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorSample(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryCasting.add("f to c");
 		registry.put("f to c", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFloatToColor(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryCasting.add("sf to c");
 		registry.put("sf to c", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeSingleFloatToColor(HvlCamera.getX(), HvlCamera.getY());
+				new NodeSingleFloatToColor(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryCasting.add("c to f");
 		registry.put("c to f", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeColorToFloat(HvlCamera.getX(), HvlCamera.getY());
+				new NodeColorToFloat(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFragment.add("frag loc get");
 		registry.put("frag loc get", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFragLocationGet(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFragLocationGet(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryFragment.add("frag set");
 		registry.put("frag set", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeFragSet(HvlCamera.getX(), HvlCamera.getY());
+				new NodeFragSet(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryOrganization.add("org ctr");
 		registry.put("org ctr", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeOrganizationConnector(HvlCamera.getX(), HvlCamera.getY());
+				new NodeOrganizationConnector(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryOrganization.add("org lbl");
@@ -488,7 +450,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeOrganizationLabel node = new NodeOrganizationLabel(getUserString(), HvlCamera.getX(), HvlCamera.getY());
+					NodeOrganizationLabel node = new NodeOrganizationLabel(getUserString(), Main.camera.getX(), Main.camera.getY());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
@@ -504,14 +466,14 @@ public abstract class Node {
 		registry.put("end frag", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeEndFragSet(HvlCamera.getX(), HvlCamera.getY());
+				new NodeEndFragSet(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		categoryManagement.add("end");
 		registry.put("end", new HvlAction0(){
 			@Override
 			public void run(){
-				new NodeEnd(HvlCamera.getX(), HvlCamera.getY());
+				new NodeEnd(Main.camera.getX(), Main.camera.getY());
 			}
 		});
 		
