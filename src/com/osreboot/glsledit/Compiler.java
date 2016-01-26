@@ -34,7 +34,7 @@ public class Compiler {
 
 	public static void compile(){
 		failed = false;
-		Main.font.drawWord("compiling...", (Display.getWidth()/2) - (Main.font.getLineWidth("compiling...")/4), (Display.getHeight()/2) - 28, 0.5f, Color.green);
+		Main.font.drawWord("compiling...", (Display.getWidth()/2) - (Main.font.getLineWidth("compiling...")/4), (Display.getHeight()/2) - 28, Color.green, 0.5f);
 
 		String program = "";
 		Node current = Main.getStarterNode();
@@ -75,7 +75,7 @@ public class Compiler {
 				}
 			});
 		}else{
-			Main.font.drawWord("shader error", Display.getWidth() - 256 - (Main.font.getLineWidth("shader error")/8), (Display.getHeight()/2) - 14, 0.25f, Color.red);
+			Main.font.drawWord("shader error", Display.getWidth() - 256 - (Main.font.getLineWidth("shader error")/8), (Display.getHeight()/2) - 14, Color.red, 0.25f);
 		}
 
 	}

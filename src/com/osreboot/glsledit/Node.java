@@ -615,7 +615,7 @@ public abstract class Node {
 		hvlDrawQuad(x, y, width, 32 + (Math.max(inputs.size(), outputs.size()) * 32), color);
 		float value = Interactor.mouseNode == this ? 0.2f : -0.2f;
 		hvlDrawQuad(x, y, 16, 32, new Color(color.r + value, color.g + value, color.b + value));
-		Main.font.drawWord(name, x + (width/2) - (Main.font.getLineWidth(name)/20), y + 6, 0.1f, Color.white);
+		Main.font.drawWord(name, x + (width/2) - (Main.font.getLineWidth(name)/20), y + 6, Color.white, 0.1f);
 		for(Pin p : inputs) p.draw(true, delta);
 		for(Pin p : outputs) p.draw(false, delta);
 	}
