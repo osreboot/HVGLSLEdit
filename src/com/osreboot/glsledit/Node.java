@@ -80,7 +80,7 @@ public abstract class Node {
 			@Override
 			public void run(){
 				try{
-					NodeArbitraryFloat node = new NodeArbitraryFloat(getUserFloat(), Main.camera.getX(), Main.camera.getY());
+					NodeArbitraryFloat node = new NodeArbitraryFloat(Main.camera.getX(), Main.camera.getY(), getUserFloat());
 					node.setOnDialogueClick(new HvlAction1<Node>(){
 						@Override
 						public void run(Node node){
